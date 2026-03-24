@@ -15,5 +15,5 @@ export function updateEvent(req, res)
 
 export function deleteEvent(req, res)
 {
-    res.status(201).json({message: "Event deleted successfully!"})
-}
+    res.status(200).json({message: "Event deleted successfully!"})
+}77

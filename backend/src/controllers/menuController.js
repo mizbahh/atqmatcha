@@ -15,5 +15,5 @@ export function updateMenuItem(req, res)
 
 export function deleteMenuItem(req, res)
 {
-    res.status(201).json({message: "Menu item deleted successfully!"})
+    res.status(200).json({message: "Menu item deleted successfully!"})
 }

@@ -15,5 +15,5 @@ export function updateReview(req, res)
 
 export function deleteReview(req, res)
 {
-    res.status(201).json({message: "Review deleted successfully!"})
+    res.status(200).json({message: "Review deleted successfully!"})
 }

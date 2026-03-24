@@ -15,5 +15,5 @@ export function updateUser(req, res)
 
 export function deleteUser(req, res)
 {
-    res.status(201).json({message: "User deleted successfully!"})
+    res.status(200).json({message: "User deleted successfully!"})
 }

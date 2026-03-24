@@ -15,5 +15,5 @@ export function updateOrder(req, res)
 
 export function deleteOrder(req, res)
 {
-    res.status(201).json({message: "Order deleted successfully!"})
+    res.status(200).json({message: "Order deleted successfully!"})
 }
