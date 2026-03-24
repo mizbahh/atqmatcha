@@ -9,16 +9,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const app = express()
-const PORT = process.env.PORT || 5001;
-
 connectDB();
 
+const app = express()
+const PORT = parseInt(process.env.PORT, 10);
+
+app.use(express.json());
 app.use("/api/menus", menuRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/events", eventRoutes);
-app.use("/api/reviews", reviewRoutes);
-app.use("/api/users", userRoutes);
+
+
+//app.use("/api/orders", orderRoutes);
+//app.use("/api/events", eventRoutes);
+//app.use("/api/reviews", reviewRoutes);
+//app.use("/api/users", userRoutes);
 
 
 app.listen(PORT, () =>{

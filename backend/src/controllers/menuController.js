@@ -1,11 +1,31 @@
-export function getAllMenuItems(req, res)
+import menuItem from "../models/menu-item.js"
+export async function getAllMenuItems(req, res)
 {
-    res.status(200).send("You fetched the menu") //200 = success
+    try {
+        const menuItems = await menuItem.find()
+        res.status(200).json(menuItems)
+    } catch (error) {
+        console.error("Error in getAllMenuItems controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
 }
 
-export function createMenuItem(req, res)
+export async function createMenuItem(req, res)
 {
-   res.status(201).json({message: "Menu item created successfully!"})
+   try {
+    const {name, description, imageURL, price} = req.body
+    const newMenuItem = new menuItem({name:name, description:description, imageURL:imageURL, price:price})
+    
+    const savedItem = await newMenuItem.save()
+
+    res.status(201).json(savedItem)
+
+    console.log("Menu Item Created Succesfully");
+
+   } catch (error) {
+        console.error("Error in createMenuItem controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+   }
 }
 
 export function updateMenuItem(req, res)

@@ -1,5 +1,4 @@
 import express from "express";
-import { createMenuItem, deleteMenuItem, getAllMenuItems, updateMenuItem } from "../controllers/menuController.js";
 import { createReview, deleteReview, getAllReviews, updateReview } from "../controllers/reviewController.js";
 
 const router = express.Router();

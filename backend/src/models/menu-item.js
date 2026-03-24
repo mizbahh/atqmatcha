@@ -9,7 +9,7 @@ import mongoose from "mongoose";
 const menuitemSchema = new mongoose.Schema(
 {
     name: {
-        type:String,
+        type:String, 
         required: true
     },
     description: {
@@ -22,7 +22,8 @@ const menuitemSchema = new mongoose.Schema(
     },
     price:{
         type:Number,
-        required: true
+        required: true,
+        min: 0
     }
 
 }
