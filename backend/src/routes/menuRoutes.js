@@ -1,9 +1,11 @@
 import express from "express";
-import { createMenuItem, deleteMenuItem, getAllMenuItems, updateMenuItem } from "../controllers/menuController.js";
+import { createMenuItem, deleteMenuItem, getAllMenuItems, getMenuItemByID, updateMenuItem } from "../controllers/menuController.js";
 
 const router = express.Router();
 
 router.get("/", getAllMenuItems);
+
+router.get("/:id", getMenuItemByID);
 
 router.post("/", createMenuItem);
 

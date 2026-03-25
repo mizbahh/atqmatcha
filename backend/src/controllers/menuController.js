@@ -1,5 +1,6 @@
 import menuItem from "../models/menu-item.js"
-export async function getAllMenuItems(req, res)
+
+export async function getAllMenuItems(_, res)
 {
     try {
         const menuItems = await menuItem.find()
@@ -9,6 +10,20 @@ export async function getAllMenuItems(req, res)
         res.status(500).json({message:"Internal Server Error"})
     }
 }
+
+export async function getMenuItemByID(req, res)
+{
+    try {
+        const selectedMenuItem = await menuItem.findById(req.params.id)
+        if(!selectedMenuItem)
+            return res.status(404).json({message: "Menu Item Not Found"})
+        res.status(200).json(selectedMenuItem)
+    } catch (error) {
+        console.error("Error in getMenuItemByID controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+}
+
 
 export async function createMenuItem(req, res)
 {
@@ -28,12 +43,44 @@ export async function createMenuItem(req, res)
    }
 }
 
-export function updateMenuItem(req, res)
+export async function updateMenuItem(req, res)
 {
-    res.status(200).json({message: "Menu item updated successfully!"})
+    try {
+        const {name, description, imageURL, price} = req.body
+        const updatedMenuItem = await menuItem.findByIdAndUpdate(
+            req.params.id,
+            {name, description, imageURL, price},
+            {new: true,}
+        )
+
+        if(!updatedMenuItem) //if theres no menu item to update, spit out 404 error
+            return res.status(404).json({message: "Menu Item Not Found"})
+
+        res.status(200).json(updatedMenuItem)
+    } catch (error) {
+        console.error("Error in updateMenuItem controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+    
+    
+    //res.status(200).json({message: "Menu item updated successfully!"})
 }
 
-export function deleteMenuItem(req, res)
+export async function deleteMenuItem(req, res)
 {
-    res.status(200).json({message: "Menu item deleted successfully!"})
+    
+    try {
+        const selectedMenuItem = await menuItem.findByIdAndDelete(req.params.id)
+
+        if(!selectedMenuItem) //if theres no menu item to delete, spit out 404 error
+            return res.status(404).json({message: "Menu Item Not Found"})
+
+        res.status(200).json({message: "Menu Item Deleted Successfully"})
+    } catch (error) {
+        console.error("Error in updateMenuItem controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+    
+    
+    //res.status(200).json({message: "Menu item deleted successfully!"})
 }
