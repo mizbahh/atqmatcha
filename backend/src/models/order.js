@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import menuItem from "./menu-item";
+import menuItem from "./menu-item.js";
+import user from "./user.js";
 
 
 //1 - Create a schema
@@ -8,9 +9,9 @@ import menuItem from "./menu-item";
 
 const orderItemSchema = new mongoose.Schema( //For each item in the order
 {
-    productID:{
+    menuItemId:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "menu-item",
+        ref: "menuItem",
         required: true
     },
     quantity:{
@@ -19,7 +20,7 @@ const orderItemSchema = new mongoose.Schema( //For each item in the order
         min: 1
     },
     price: {
-        type: number,
+        type: Number,
         required: true
     }
     
@@ -33,7 +34,10 @@ const orderSchema = new mongoose.Schema( //For the whole order
         ref: "user",
         required: true
     },
-    items:[orderItemSchema],
+    items:{
+       type: [orderItemSchema],
+       required: true
+    },
     total:{
         type: Number,
         default: 0

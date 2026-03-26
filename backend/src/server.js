@@ -19,13 +19,12 @@ const PORT = parseInt(process.env.PORT, 10) || 5001;
 //middleware to get access to the request body
 app.use(express.json());
 
-
-app.use("/api/menuItems", menuRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/menuItems", menuRoutes);
 //app.use("/api/orders", orderRoutes);
 app.use("/api/events", eventRoutes);
-//app.use("/api/reviews", reviewRoutes);
-//app.use("/api/users", userRoutes);
+app.use("/api/reviews", reviewRoutes);
+app.use("/api/users", userRoutes);
 
 connectDB().then( () => {
 

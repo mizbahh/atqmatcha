@@ -16,10 +16,19 @@ const reviewSchema = new mongoose.Schema(
         type:String,
         required:true
     },
-    rating:{
+    rating:{ //"star" rating, can be 0 through 5
         type:Number,
         required: true,
-        default:0
+        default:0,
+        min: 0,
+        max: 5
+    },
+    customerId:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "user"
+
+
     }
 
 },

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import config from "../config.js"
+import jwt from "jsonwebtoken";
 import user from "../models/user.js";
 
 
@@ -27,7 +27,26 @@ export async function registerUser(req, res){
 
         //saves the hashed password in MongoDB
         await newUser.save();
-        res.status(200).json({message: "Successfully Registered User"});
+       
+        console.log("User id:", newUser._id);
+
+        //creates token
+        const payload = 
+        {
+            user: 
+            {
+                id: String(newUser._id)
+            }        
+        };
+
+        //builds JSON web token, expires in 1 hour
+        const token = jwt.sign(payload, process.env.JWT_SECRET,{
+            expiresIn: "1h"
+        });
+
+        res.status(200).json({token});
+       
+        
 
     }
     catch(err){
@@ -53,7 +72,23 @@ export async function loginUser(req, res){
             return res.status(400).json({ msg: 'Invalid credentials' });
         }
 
-        res.status(200).json({message:"Successfully logged in"});
+          //creates token
+        const payload = {
+            user: 
+            {
+                id: String(selectedUser.id)
+            }
+        };
+
+        //builds JSON web token, expires in 1 hour
+        const token = jwt.sign(payload, process.env.JWT_SECRET,{
+            expiresIn: "1h"
+        });
+
+        res.status(200).json({token});
+      
+        
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
