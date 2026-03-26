@@ -1,19 +1,88 @@
-export function getAllEvents(req, res)
+import event from "../models/event.js"
+
+export async function getAllEvents(_, res)
 {
-    res.status(200).send("You fetched the events") //200 = success
+    try {
+        const events = await event.find()
+        res.status(200).json(events)
+    } catch (error) {
+        console.error("Error in getAllEvents controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
 }
 
-export function createEvent(req, res)
+export async function getEventByID(req, res)
 {
-   res.status(201).json({message: "Event created successfully!"})
+    try {
+        const selectedEvent = await event.findById(req.params.id)
+        if(!selectedEvent)
+            return res.status(404).json({message: "Event Not Found"})
+        res.status(200).json(selectedEvent)
+    } catch (error) {
+        console.error("Error in getEventByID controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
 }
 
-export function updateEvent(req, res)
+
+export async function createEvent(req, res)
 {
-    res.status(200).json({message: "Event updated successfully!"})
+   try {
+    const {title, description, address, date, time} = req.body
+    const newEvent = new event({title: title, description: description, address: address, date: date, time: time })
+    
+    const savedEvent = await newEvent.save()
+
+    res.status(201).json(savedEvent)
+
+    console.log("Event Created Succesfully");
+
+   } catch (error) {
+        console.error("Error in createEvent controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+   }
 }
 
-export function deleteEvent(req, res)
+export async function updateEvent(req, res)
 {
-    res.status(200).json({message: "Event deleted successfully!"})
-}77
+    try {
+        const {title, description, address, date, time} = req.body
+        const updatedEvent = await event.findByIdAndUpdate(
+            req.params.id,
+            {title, description, address, date, time},
+            {new: true,}
+        )
+
+        console.log("Event Updated Succesfully");
+
+        if(!updatedEvent) //if theres no event  to update, spit out 404 error
+            return res.status(404).json({message: "Event Not Found"})
+
+        res.status(200).json(updatedEvent)
+    } catch (error) {
+        console.error("Error in updateEvent controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+    
+    
+    //res.status(200).json({message: "Event  updated successfully!"})
+}
+
+export async function deleteEvent(req, res)
+{
+    
+    try {
+        const selectedEvent = await event.findByIdAndDelete(req.params.id)
+
+        if(!selectedEvent) //if theres no event  to delete, spit out 404 error
+            return res.status(404).json({message: "Event Not Found"})
+
+        res.status(200).json({message: "Event Deleted Successfully"})
+    } catch (error) {
+        console.error("Error in updateEvent controller", error)
+        res.status(500).json({message:"Internal Server Error"})
+    }
+    
+    
+    //res.status(200).json({message: "Event  deleted successfully!"})
+}
