@@ -9,12 +9,12 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
 {
     firstName: { //Title of user
-        type:String, 
-        required: true
+        type:String,
+        required: false
     },
     lastName: { //Description of the user
         type:String,
-        required:true
+        required: false
     },
     username:{ //Address of the user
         type: String,
