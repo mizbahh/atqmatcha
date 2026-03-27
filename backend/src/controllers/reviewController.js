@@ -61,21 +61,23 @@ export async function updateReview(req, res)
         if(!reviewToUpdate)
             return res.status(404).json({message:"Review Not Found"});
 
-        if(reviewToUpdate.customerId.toString() !== req.user.id){
-            return res.status(403).json({message: "Not Authorized"});
+         if(req.user.role == "admin" || reviewToUpdate.customerId.toString() == req.user.id){
+            const {title, content, rating} = req.body;
+
+            const updatedReview = await review.findByIdAndUpdate(
+                req.params.id,
+                {title, content, rating},
+                {new: true,}
+            )
+
+            res.status(200).json(updatedReview)
+
+            console.log("Review Updated Succesfully");
+         }
+        else{
+            return res.status(403).json({message: "Not Authorized - User Cannot Delete Other's Reviews"})
         }
-
-        const {title, content, rating} = req.body;
-
-        const updatedReview = await review.findByIdAndUpdate(
-            req.params.id,
-            {title, content, rating},
-            {new: true,}
-        )
-
-        res.status(200).json(updatedReview)
-
-        console.log("Review Updated Succesfully");
+       
 
     } catch (error) {
         console.error("Error in updateReview controller", error)
@@ -95,15 +97,17 @@ export async function deleteReview(req, res)
         if(!selectedReview) //if theres no review  to delete, spit out 404 error
             return res.status(404).json({message: "Review Not Found"})
 
-        if(selectedReview.customerId.toString() !== req.user.id){
-            return res.status(403).json({message: "Not Authorized"})
+        if(req.user.role == "admin" || selectedReview.customerId.toString() == req.user.id){
+            await selectedReview.deleteOne()
+            res.status(200).json({message: "Review Deleted Successfully"})
+        }
+        else{
+            return res.status(403).json({message: "Not Authorized - User Cannot Delete Other's Reviews"})
         }
 
-        await selctedReview.deleteOne()
-
-        res.status(200).json({message: "Review Deleted Successfully"})
+        
     } catch (error) {
-        console.error("Error in updateReview controller", error)
+        console.error("Error in deleteReview controller", error)
         res.status(500).json({message:"Internal Server Error"})
     }
     

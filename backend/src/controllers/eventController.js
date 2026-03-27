@@ -79,7 +79,7 @@ export async function deleteEvent(req, res)
 
         res.status(200).json({message: "Event Deleted Successfully"})
     } catch (error) {
-        console.error("Error in updateEvent controller", error)
+        console.error("Error in deleteEvent controller", error)
         res.status(500).json({message:"Internal Server Error"})
     }
     

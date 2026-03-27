@@ -29,13 +29,15 @@ export async function registerUser(req, res){
         await newUser.save();
        
         console.log("User id:", newUser._id);
+        console.log("Role:", newUser.role);
 
         //creates token
         const payload = 
         {
             user: 
             {
-                id: String(newUser._id)
+                id: String(newUser._id),
+                role: String(newUser.role)
             }        
         };
 
@@ -76,7 +78,8 @@ export async function loginUser(req, res){
         const payload = {
             user: 
             {
-                id: String(selectedUser.id)
+                id: String(selectedUser.id),
+                role: String(selectedUser.role)
             }
         };
 

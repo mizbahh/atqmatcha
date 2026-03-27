@@ -77,7 +77,7 @@ export async function deleteMenuItem(req, res)
 
         res.status(200).json({message: "Menu Item Deleted Successfully"})
     } catch (error) {
-        console.error("Error in updateMenuItem controller", error)
+        console.error("Error in deleteMenuItem controller", error)
         res.status(500).json({message:"Internal Server Error"})
     }
     

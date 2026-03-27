@@ -1,15 +1,16 @@
 import express from "express";
 import { createOrder, deleteOrder, getAllOrders, updateOrder } from "../controllers/orderController.js";
+import auth from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
 router.get("/", getAllOrders);
 
-router.post("/", createOrder);
+router.post("/", auth, createOrder);
 
-router.put("/:id", updateOrder);
+router.put("/:id", auth, updateOrder);
 
-router.delete("/:id", deleteOrder);
+router.delete("/:id", auth, deleteOrder);
 
 export default router;
 

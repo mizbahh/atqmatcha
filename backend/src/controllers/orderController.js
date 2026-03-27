@@ -28,8 +28,10 @@ export async function getOrderByID(req, res)
 export async function createOrder(req, res)
 {
    try {
-    const {customerID, items} = req.body
-    const newOrder = new order({title: title, content: content, rating: rating, customerId: customerId})
+    const newOrder = new order({
+        customerId: req.user.id,
+        items: req.body.items
+    })
     
     const savedOrder = await newOrder.save()
 
@@ -46,19 +48,26 @@ export async function createOrder(req, res)
 export async function updateOrder(req, res)
 {
     try {
-        const {customerID, items} = req.body
-        const updatedOrder = await order.findByIdAndUpdate(
-            req.params.id,
-            {customerID, items},
-            {new: true}
-        )
 
-        console.log("Order Updated Succesfully");
+        if(req.user.role == "admin" || selectedOrder.customerId.toString() == req.user.id){
+            const {customerID, items} = req.body
+            const updatedOrder = await order.findByIdAndUpdate(
+                req.params.id,
+                {customerID, items},
+                {new: true}
+            )
 
-        if(!updatedOrder) //if theres no order  to update, spit out 404 error
-            return res.status(404).json({message: "Order Not Found"})
+            if(!updatedOrder) //if theres no order  to update, spit out 404 error
+                return res.status(404).json({message: "Order Not Found"})
 
-        res.status(200).json(updatedOrder)
+            console.log("Order Updated Succesfully");
+
+            res.status(200).json(updatedOrder)
+        }
+        else{
+            return res.status(403).json({message: "Not Authorized - User Cannot Update Other's Orders"})
+        }
+        
     } catch (error) {
         console.error("Error in updateOrder controller", error)
         res.status(500).json({message:"Internal Server Error"})
@@ -72,16 +81,24 @@ export async function deleteOrder(req, res)
 {
     
     try {
-        const selectedOrder = await order.findByIdAndDelete(req.params.id)
-
-        if(!selectedOrder) //if theres no order  to delete, spit out 404 error
-            return res.status(404).json({message: "Order Not Found"})
-
-        res.status(200).json({message: "Order Deleted Successfully"})
-    } catch (error) {
-        console.error("Error in updateOrder controller", error)
-        res.status(500).json({message:"Internal Server Error"})
-    }
+            const selectedOrder = await order.findById(req.params.id)
+    
+            if(!selectedOrder) //if theres no order  to delete, spit out 404 error
+                return res.status(404).json({message: "Order Not Found"})
+    
+            if(req.user.role == "admin" || selectedOrder.customerId.toString() == req.user.id){
+                await selectedOrder.deleteOne()
+                res.status(200).json({message: "Order Deleted Successfully"})
+            }
+            else{
+                return res.status(403).json({message: "Not Authorized - User Cannot Delete Other's Orders"})
+            }
+    
+            
+        } catch (error) {
+            console.error("Error in deleteOrder controller", error)
+            res.status(500).json({message:"Internal Server Error"})
+        }
     
     
     //res.status(200).json({message: "Order  deleted successfully!"})
