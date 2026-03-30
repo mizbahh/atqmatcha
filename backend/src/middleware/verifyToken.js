@@ -17,7 +17,6 @@ export default function auth(req, res, next){
         //decode the token to access user ID
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded.user; // {id: userId}
-        console.log("AUTH MIDDLEWARE req.user:", req.user);
         next();
     } catch(err){
         res.status(401).json({message:"Token is not valid"});

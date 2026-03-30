@@ -1,10 +1,13 @@
 import express from "express";
-import { createOrder, deleteOrder, getAllOrders, updateOrder } from "../controllers/orderController.js";
+import { createOrder, deleteOrder, getAllOrders, getOrderByID, updateOrder } from "../controllers/orderController.js";
 import auth from "../middleware/verifyToken.js";
+import isAdmin from "../middleware/isAdmin.js";
 
 const router = express.Router();
 
-router.get("/", getAllOrders);
+router.get("/", auth, isAdmin, getAllOrders);
+
+router.get("/:id", auth, getOrderByID);
 
 router.post("/", auth, createOrder);
 
