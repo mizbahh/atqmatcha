@@ -1,11 +1,13 @@
 import express from "express";
 import auth from "../middleware/verifyToken.js";
 import isAdmin from "../middleware/isAdmin.js";
-import { createUser, deleteUser, getAllUsers, makeAdmin, updateUser } from "../controllers/userController.js";
+import { createUser, deleteUser, getAllUsers, getUserByID, makeAdmin, updateUser } from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.get("/", getAllUsers);
+router.get("/", auth, isAdmin, getAllUsers);
+
+router.get("/:id", auth, isAdmin, getUserByID);
 
 router.post("/", auth, isAdmin, createUser);
 
