@@ -30,7 +30,7 @@ export default function LoginPage() {
     
     return (
         <div className="loginContainer">
-            <h1>Welcome to ATQ Matcha</h1>
+            <h1 className="welcome">Welcome to ATQ Matcha</h1>
 
             <form className="loginField">
                 <div>
