@@ -1,23 +1,27 @@
 
 body{
-    background-color: #dfe9f3;
     line-height: 1.2;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: black;
+    /*color: black;*/
 }
 
 h1{
     color: black;
+    font-family: cursive;
+    font-size: 105px;
 }
 
 .loginContainer {
-    max-width: 400px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    background-color: #84cb7e;
+    /*background-color: #84cb7e;*/
+    background-image: linear-gradient(to bottom, #84cb7e, #6ba766);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
 
     /* Centers** the container on the page (a little more up just cause it looks better) */
     position: absolute;
@@ -34,6 +38,8 @@ h1{
     width: 100%;
     padding: 8px;
     margin-top: 5px;
+    color:black;
+    text-align: center;
     background-color: #dfe9f3;
 }
 

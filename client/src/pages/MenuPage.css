@@ -1,0 +1,322 @@
+/*
+  AI generated frontend for testing functionality. Not intended for production use.
+*/
+
+.menu-page { background: var(--cream); min-height: 100vh; }
+
+/* ─── Page Header ─────────────────────────────────────── */
+.menu-header {
+  position: relative;
+  background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 50%, #3d7a35 100%);
+  padding: 5rem 2rem 4rem;
+  overflow: hidden;
+}
+.menu-header-bg { position: absolute; inset: 0; }
+
+/* reuse .orb and .grain from HomePage — they share the same class names */
+
+.menu-header-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.menu-page-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  margin: 1rem 0;
+}
+.menu-page-title .accent { font-style: italic; color: var(--green-pale); }
+
+.menu-page-sub {
+  color: rgba(249, 245, 238, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ─── Body ────────────────────────────────────────────── */
+.menu-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+/* ─── Category Tabs ───────────────────────────────────── */
+.category-tabs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.cat-tab {
+  background: var(--green-mist);
+  border: 1.5px solid rgba(74, 140, 63, 0.15);
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.65rem 1.4rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.cat-tab:hover { border-color: var(--green-bright); color: var(--green-deep); }
+.cat-tab.active {
+  background: var(--green-deep);
+  border-color: var(--green-deep);
+  color: var(--cream);
+}
+
+/* ─── Two-Column Layout ───────────────────────────────── */
+.menu-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .menu-layout { grid-template-columns: 1fr; }
+}
+
+/* ─── Menu Item Cards ─────────────────────────────────── */
+.menu-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.menu-item-card {
+  background: #fff;
+  border: 1px solid rgba(26, 46, 26, 0.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.menu-item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(26, 46, 26, 0.1);
+}
+
+.mic-swatch { height: 6px; }
+.mic-body   { padding: 1.25rem; }
+
+.mic-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.mic-name {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--green-deep);
+  margin: 0.3rem 0 0.4rem;
+}
+.mic-desc  { font-size: 0.8rem; color: var(--text-light); line-height: 1.6; }
+.mic-price {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--green-mid);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Option Pills ────────────────────────────────────── */
+.mic-options  { margin-bottom: 1rem; }
+.opt-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.opt-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.opt-pill {
+  background: var(--green-mist);
+  border: 1.5px solid transparent;
+  color: var(--text-mid);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.opt-pill:hover { border-color: var(--green-bright); }
+.opt-pill.selected {
+  background: var(--green-deep);
+  color: var(--cream);
+  border-color: var(--green-deep);
+}
+
+/* ─── Add Button ──────────────────────────────────────── */
+.mic-add {
+  width: 100%;
+  background: var(--green-mist);
+  border: 1.5px solid rgba(74, 140, 63, 0.2);
+  color: var(--green-deep);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.65rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.mic-add:hover {
+  background: var(--green-deep);
+  color: var(--cream);
+  border-color: var(--green-deep);
+}
+.mic-add.added {
+  background: var(--green-bright);
+  color: #fff;
+  border-color: var(--green-bright);
+}
+
+/* ─── Cart Sidebar ────────────────────────────────────── */
+.cart-sidebar { position: relative; }
+.cart-sticky {
+  position: sticky;
+  top: calc(var(--nav-h) + 1.5rem);
+  background: #fff;
+  border: 1px solid rgba(26, 46, 26, 0.08);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(26, 46, 26, 0.06);
+  background: var(--green-deep);
+}
+.cart-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--cream);
+}
+.cart-count {
+  background: var(--gold);
+  color: var(--green-deep);
+  font-size: 0.72rem;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-empty {
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  color: var(--text-light);
+}
+.cart-empty span { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+.cart-empty p    { font-size: 0.82rem; line-height: 1.6; }
+
+.cart-items {
+  list-style: none;
+  padding: 0.75rem 1.5rem;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(26, 46, 26, 0.05);
+}
+.ci-info  { flex: 1; min-width: 0; }
+.ci-name  { font-size: 0.82rem; font-weight: 700; color: var(--green-deep); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ci-opt   { font-size: 0.7rem; color: var(--text-light); display: block; }
+.ci-right { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.ci-qty   { font-size: 0.75rem; color: var(--text-light); }
+.ci-price { font-size: 0.82rem; font-weight: 700; color: var(--green-mid); }
+.ci-remove {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 0.65rem;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color var(--transition), background var(--transition);
+}
+.ci-remove:hover { color: #c0392b; background: #fdecea; }
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  border-top: 1px solid rgba(26, 46, 26, 0.08);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--green-deep);
+}
+
+.cart-submit {
+  display: block;
+  width: calc(100% - 3rem);
+  margin: 0 1.5rem 0.75rem;
+}
+.cart-note {
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--text-light);
+  padding: 0 1.5rem 1rem;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Next Pickup Info ────────────────────────────────── */
+.cart-next-popup {
+  background: var(--green-mist);
+  border-top: 1px solid rgba(74, 140, 63, 0.1);
+  padding: 1.25rem 1.5rem;
+}
+.cnp-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-bright);
+  margin-bottom: 0.3rem;
+}
+.cnp-event {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-deep);
+}
+.cnp-date  { font-size: 0.75rem; color: var(--text-light); margin-bottom: 0.75rem; }
+.cnp-btn   { font-size: 0.75rem; padding: 0.5rem 1rem; }
+
+/* reuse .drink-tag from HomePage for item tag labels */
+.drink-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}

@@ -7,6 +7,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+
     // Placeholder login handler -> in a real app, verify credentials here
     const handleLogin = () => {
         // For now, just set logged in to true
@@ -26,6 +27,7 @@ export default function LoginPage() {
         return <App />;
     }
 
+    
     return (
         <div className="loginContainer">
             <h1>Welcome to ATQ Matcha</h1>

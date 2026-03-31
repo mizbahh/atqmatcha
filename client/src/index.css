@@ -1,9 +1,15 @@
 /*
-AI GENERATED CSS FOR THE PURPOSE OF TESTING FUNCTIONALITY
+my-react-app template 
+  Defines many of the defaults that will be used across various pages.
 */
 
+body {
+  background-image: url("../public/background.jpg");
+  background-size: cover;
+}
+
 :root {
-  --text: #6b6375;
+  --text: #000000;
   --text-h: #08060d;
   --bg: #fff;
   --border: #e5e4e7;
@@ -34,6 +40,7 @@ AI GENERATED CSS FOR THE PURPOSE OF TESTING FUNCTIONALITY
   }
 }
 
+/*
 @media (prefers-color-scheme: dark) {
   :root {
     --text: #9ca3af;
@@ -52,11 +59,12 @@ AI GENERATED CSS FOR THE PURPOSE OF TESTING FUNCTIONALITY
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
-}
+} */
 
 #root {
-  width: 1226px;
-  max-width: 100%;
+  /*background-color: green;*/
+  width: 1400px;
+  max-width: 95%;
   margin: 0 auto;
   text-align: center;
   min-height: 100svh;
@@ -65,8 +73,7 @@ AI GENERATED CSS FOR THE PURPOSE OF TESTING FUNCTIONALITY
   box-sizing: border-box;
 }
 
-h1,
-h2 {
+h1, h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
