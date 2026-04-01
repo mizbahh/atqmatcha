@@ -1,0 +1,147 @@
+/*
+  AI generated frontend for testing functionality. Not intended for production use.
+*/
+
+.schedule-page { background: var(--cream); min-height: 100vh; }
+
+/* ─── Upcoming Strip ──────────────────────────────────── */
+.upcoming-strip {
+  background: var(--green-deep);
+  padding: 2.5rem 2rem;
+}
+.us-inner { max-width: 1100px; margin: 0 auto; }
+.us-label {
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.25rem; font-weight: 700;
+}
+.upcoming-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1rem; }
+
+.upcoming-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid;
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+  transition: transform var(--transition), background var(--transition);
+}
+.upcoming-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
+
+.uc-date-block {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.08); border-radius: 10px;
+  padding: 0.6rem 0.9rem; flex-shrink: 0;
+}
+.uc-month { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); font-weight: 700; }
+.uc-day   { font-family: var(--font-display); font-size: 1.8rem; color: var(--cream); line-height: 1; }
+
+.uc-info { flex: 1; }
+.uc-type {
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.2rem 0.6rem; border-radius: 50px; display: inline-block; margin-bottom: 0.4rem;
+}
+.uc-name { font-family: var(--font-display); font-size: 1.05rem; color: var(--cream); font-weight: 400; margin-bottom: 0.35rem; }
+.uc-time { font-size: 0.75rem; color: rgba(249,245,238,0.55); line-height: 1.6; }
+
+/* ─── Schedule Body ───────────────────────────────────── */
+.schedule-body { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+.schedule-layout { display: grid; grid-template-columns: 340px 1fr; gap: 3rem; align-items: start; }
+@media (max-width: 860px) { .schedule-layout { grid-template-columns: 1fr; } }
+
+/* ─── Calendar ────────────────────────────────────────── */
+.cal-section { position: sticky; top: calc(var(--nav-h) + 1rem); }
+
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.cal-nav h2 {
+  font-family: var(--font-display); font-size: 1.3rem; font-weight: 400; color: var(--green-deep);
+}
+.cal-nav-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--green-mist); border: 1.5px solid rgba(74,140,63,0.15);
+  color: var(--green-deep); font-size: 1.2rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--transition);
+}
+.cal-nav-btn:hover { background: var(--green-pale); }
+
+.calendar { background: #fff; border: 1px solid rgba(26,46,26,0.08); border-radius: var(--radius); overflow: hidden; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+
+.cal-day-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-light); text-align: center; padding: 0.75rem 0;
+  background: var(--green-mist);
+}
+.cal-cell {
+  aspect-ratio: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  font-size: 0.82rem; color: var(--text-mid); position: relative;
+  border: 1px solid rgba(26,46,26,0.04);
+  transition: background var(--transition);
+  cursor: default;
+}
+.cal-cell.empty { background: rgba(26,46,26,0.02); }
+.cal-cell.has-event { cursor: pointer; font-weight: 700; color: var(--green-deep); }
+.cal-cell.has-event:hover { background: var(--green-mist); }
+.cal-cell.selected { background: var(--green-deep) !important; color: var(--cream) !important; }
+.cal-cell.today span {
+  background: var(--gold); color: var(--green-deep);
+  border-radius: 50%; width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.cal-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green-bright); position: absolute; bottom: 5px;
+}
+.cal-cell.selected .cal-dot { background: var(--gold); }
+
+.clear-sel {
+  display: block; width: 100%; text-align: center;
+  background: none; border: none; color: var(--text-light);
+  font-size: 0.75rem; margin-top: 0.75rem; cursor: pointer;
+  transition: color var(--transition);
+}
+.clear-sel:hover { color: var(--green-mid); }
+
+/* ─── Event List ──────────────────────────────────────── */
+.el-heading {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
+  color: var(--green-deep); margin-bottom: 1.25rem;
+}
+.el-empty {
+  text-align: center; padding: 3rem 1rem; color: var(--text-light);
+}
+.el-empty span { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+.el-empty p    { font-size: 0.88rem; line-height: 1.7; }
+.inline-link { background: none; border: none; color: var(--green-mid); cursor: pointer; font-size: inherit; text-decoration: underline; }
+
+.event-card {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: #fff; border: 1px solid rgba(26,46,26,0.07);
+  border-radius: var(--radius); padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: transform var(--transition), box-shadow var(--transition);
+  animation: cardIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+.event-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(26,46,26,0.08); }
+
+.ec-left {
+  display: flex; flex-direction: column; align-items: center;
+  border: 1.5px solid; border-radius: 10px;
+  padding: 0.5rem 0.85rem; flex-shrink: 0; min-width: 56px;
+}
+.ec-month { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+.ec-day   { font-family: var(--font-display); font-size: 1.7rem; line-height: 1.1; }
+
+.ec-info { flex: 1; }
+.ec-type  { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.ec-name  { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--green-deep); margin: 0.25rem 0 0.4rem; }
+.ec-meta  { font-size: 0.78rem; color: var(--text-light); margin-bottom: 0.2rem; }
+.ec-note  { font-size: 0.78rem; color: var(--text-mid); margin-top: 0.4rem; font-style: italic; }
+
+.ec-btn {
+  align-self: center; font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important; white-space: nowrap; flex-shrink: 0;
+}
