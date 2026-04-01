@@ -3,7 +3,7 @@
 */
 
 body {
-  background-image: url("../public/background.jpg");
+  background-image: url("/background.jpg");
   background-size: cover;
 }
 
@@ -27,9 +27,7 @@ body {
 
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: light dark;
   color: var(--text);
-  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -40,6 +38,7 @@ body {
   }
 }
 
+/* Global root definitions */
 #root {
   width: 1400px;
   max-width: 95%;
@@ -50,6 +49,7 @@ body {
   flex-direction: column;
   box-sizing: border-box;
 }
+
 /*
 h1, h2 {
   font-family: var(--heading);
@@ -68,6 +68,7 @@ h1 {
     margin: 20px 0;
   }*/
 }
+/*
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -77,10 +78,8 @@ h2 {
     font-size: 20px;
   }
 }
-p {
-  margin: 0;
-}
-
+*/
+/*
 code,
 .counter {
   font-family: var(--mono);
@@ -95,3 +94,4 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+*/
