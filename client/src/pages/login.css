@@ -1,7 +1,6 @@
 
 body{
     line-height: 1.2;
-    /*color: black;*/
 }
 
 h1{
@@ -11,8 +10,10 @@ h1{
     margin: 32px;
     letter-spacing: -1.68px;
     line-height: 1.1;
+    text-shadow: 2px 2px 3px grey;
 }
 
+/* Adds fade in animation on load -- also applies to Creat New User tab */
 .loginContainer { 
     opacity: 1;
 	animation-name: fadeInOpacity;
@@ -34,7 +35,6 @@ h1{
     max-width: 600px;
     margin: 50px auto;
     padding: 20px;
-    /*background-color: #84cb7e;*/
     background-image: linear-gradient(to bottom, #84cb7e, #6ba766);
     border-radius: 8px;
     display: flex;
@@ -43,7 +43,7 @@ h1{
     border-width: 2px;
     border-color: black;
 
-    /* Centers** the container on the page (a little more up just cause it looks better) */
+    /* Centers the container on the page (a little more up just cause it looks better) */
     position: absolute;
     top: 40%;
     left: 50%;
