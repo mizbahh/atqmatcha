@@ -2,7 +2,7 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import "./ReviewsPage.css";
 
@@ -14,6 +14,21 @@ const initialReviews = [
   { id: 5, name: "Daniel K.",     date: "January 2026", stars: 5, tag: "Matcha Mochi",        text: "Came for the drinks, stayed for the mochi. The ceremonial koicha was intense and perfect. These folks clearly care deeply about what they serve." },
   { id: 6, name: "Alyssa W.",     date: "January 2026", stars: 5, tag: "Hojicha Latte",       text: "The hojicha latte on a cold morning was absolutely cozy. Roasty, smooth, not bitter at all. My new winter ritual whenever they pop up nearby." },
 ];
+
+function formatMonthYear(dateValue) {
+  if (!dateValue) return "Recent";
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) return "Recent";
+
+  return parsed.toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function normalizeText(value) {
+  return (value || "").trim().toLowerCase();
+}
 
 function Stars({ count, interactive = false, onSet }) {
   const [hovered, setHovered] = useState(0);
@@ -69,17 +84,99 @@ export default function ReviewsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    const loadReviews = async () => {
+      try {
+        const response = await fetch("http://localhost:5001/api/reviews");
+        const data = await response.json();
+
+        if (!response.ok) {
+          console.error(data.message || "Failed to load reviews");
+          return;
+        }
+
+        const dbReviews = data.map((review, index) => ({
+          id: review._id || `db-${index}`,
+          name: "Recent Guest",
+          date: formatMonthYear(review.createdOn),
+          stars: review.rating,
+          tag: review.title,
+          text: review.content,
+        }));
+
+        const filteredDbReviews = dbReviews.filter((dbReview) => {
+          return !initialReviews.some(
+            (starterReview) =>
+              normalizeText(starterReview.tag) === normalizeText(dbReview.tag) &&
+              normalizeText(starterReview.text) === normalizeText(dbReview.text)
+          );
+        });
+
+        setReviews([...filteredDbReviews, ...initialReviews]);
+      } catch (err) {
+        console.error("Error loading reviews:", err);
+      }
+    };
+
+    loadReviews();
+  }, []);
+
+  const handleSubmit = async () => {
     if (!newReview.name || !newReview.text || newReview.stars === 0) {
       setError("Please fill in your name, rating, and review.");
       return;
     }
-    const now = new Date().toLocaleString("en-US", { month: "long", year: "numeric" });
-    setReviews([{ id: Date.now(), date: now, ...newReview }, ...reviews]);
-    setNewReview({ name: "", tag: "", stars: 0, text: "" });
-    setSubmitted(true);
-    setError("");
-    setTimeout(() => { setSubmitted(false); setFormOpen(false); }, 2500);
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:5001/api/reviews", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-auth-token": token } : {}),
+        },
+        body: JSON.stringify({
+          title: newReview.tag || "Review",
+          content: newReview.text,
+          rating: newReview.stars,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || data.msg || "Failed to submit review.");
+        return;
+      }
+
+      const now = data.createdOn
+        ? new Date(data.createdOn).toLocaleString("en-US", { month: "long", year: "numeric" })
+        : new Date().toLocaleString("en-US", { month: "long", year: "numeric" });
+
+      setReviews([
+        {
+          id: data._id || Date.now(),
+          name: newReview.name,
+          date: now,
+          stars: data.rating ?? newReview.stars,
+          tag: data.title || newReview.tag,
+          text: data.content || newReview.text,
+        },
+        ...reviews,
+      ]);
+
+      setNewReview({ name: "", tag: "", stars: 0, text: "" });
+      setSubmitted(true);
+      setError("");
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormOpen(false);
+      }, 2500);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to submit review.");
+    }
   };
 
   return (

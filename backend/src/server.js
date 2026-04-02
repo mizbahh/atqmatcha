@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import menuRoutes from "./routes/menuRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -16,6 +17,9 @@ dotenv.config();
 const app = express()
 const PORT = parseInt(process.env.PORT, 10) || 5001;
 
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 //middleware to get access to the request body
 app.use(express.json());
