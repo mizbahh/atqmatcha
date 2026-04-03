@@ -9,7 +9,11 @@ import Navbar      from "./components/Header.jsx";
 import ComingSoon  from "./components/ComingSoon.jsx";
 import HomePage    from "./pages/HomePage.jsx";
 import ImagesPage  from "./pages/ImagesPage.jsx";
+import ReviewsPage from "./pages/ReviewsPage.jsx";
+import SchedulePage from "./pages/SchedulePage.jsx";
+import EventInquiryPage from "./pages/EventInquiryPage.jsx";
 import MenuPage    from "./pages/MenuPage.jsx";
+import BlogPage from "./pages/BlogPage.jsx";
 import tabs        from "./data/tabs.js";
 
 export default function App() {
@@ -34,9 +38,13 @@ export default function App() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case "home": return <HomePage onTabChange={handleTabChange} />;
-      case "images": return <ImagesPage onTabChange={handleTabChange} />;
-      case "menu": return <MenuPage onTabChange={handleTabChange} />;
+      case "home":     return <HomePage    onTabChange={handleTabChange} />;
+      case "menu":     return <MenuPage     onTabChange={handleTabChange} />;
+      case "images":   return <ImagesPage />;
+      case "reviews":  return <ReviewsPage onTabChange={handleTabChange}/>;
+      case "schedule": return <SchedulePage  onTabChange={handleTabChange} />;
+      case "inquiry":  return <EventInquiryPage />;
+      case "blog":     return <BlogPage />;
       default: {
         const t = tabs.find((t) => t.id === activeTab);
         return <ComingSoon title={t?.label} />;

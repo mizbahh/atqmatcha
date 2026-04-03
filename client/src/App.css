@@ -52,8 +52,8 @@ body {
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
   z-index: 100;
-  transition: background var(--transition), box-shadow var(--transition);
-  background: transparent;
+  /*transition: background var(--transition), box-shadow var(--transition);*/
+  background: white;
 }
 
 .navbar.scrolled {

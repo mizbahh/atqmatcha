@@ -1,37 +1,33 @@
 const API_URL = import.meta.env.VITE_API_URL;
 import React, { useState } from 'react';
 import './login.css';
-import App from './App';
+import App from '../App';
+import CreateUserPage from './CreateUserPage';
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [view, setView] = useState('login'); // 'login' | 'createUser' | 'app'
 
+    if (view === 'app')        return <App />;
+    if (view === 'createUser') return <CreateUserPage onBack={() => setView('login')} />;
 
-    // Placeholder login handler -> in a real app, verify credentials here
     const handleLogin = () => {
-        // For now, just set logged in to true
         console.log('handleLogin called');
-        console.log(`Logging in with username: ${username} and password: ${password}`); // debug log
-        setIsLoggedIn(true);
+        console.log(`Logging in with username: ${username} and password: ${password}`);
+        setView('app');
     };
 
-    // Handles Create New User button click -> in a real app, navigate to registration page
     const handleCreateUser = () => {
         console.log('handleCreateUser called');
-        setIsLoggedIn(true);
-    }
-
-    // If logged in, show the main app
-    if (isLoggedIn) {
-        return <App />;
-    }
+        setView('createUser');
+    };
 
     
+    // Renders login form
     return (
         <div className="loginContainer">
-            <h1>Welcome to ATQ Matcha</h1>
+            <h1 className="welcome">Welcome to ATQ Matcha</h1>
 
             <form className="loginField">
                 <div>

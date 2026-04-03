@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes.js"
 import eventRoutes from "./routes/eventRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import announcementRoutes from "./routes/announcementRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 
@@ -25,6 +26,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/announcements", announcementRoutes);
 
 connectDB().then( () => {
 
