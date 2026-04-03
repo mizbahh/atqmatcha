@@ -10,17 +10,6 @@
 
 /* ─── Tokens ─────────────────────────────────────────── */
 :root {
-  --green-deep:   #1a2e1a;
-  --green-mid:    #2d5a27;
-  --green-bright: #4a8c3f;
-  --green-pale:   #c8e6c2;
-  --green-mist:   #eef6ec;
-  --cream:        #f9f5ee;
-  --sand:         #e8dcc8;
-  --gold:         #c9a84c;
-  --text-dark:    #1a2010;
-  --text-mid:     #3d4a38;
-  --text-light:   #6b7a64;
   --logo-green: #97c79d;
   --logo-purple: #dee9f4;
   --dark-grey: #545454;
