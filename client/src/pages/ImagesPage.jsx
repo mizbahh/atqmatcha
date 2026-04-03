@@ -1,8 +1,8 @@
 /*
-  AI generated frontend for testing functionality. Not intended for production use.
+  Pinterest-inspired gallery page. Calls images from backend and displays them, including alt text for accessibility
 */
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef} from "react";
 import Footer from "../components/Footer";
 import "./ImagesPage.css";
 
@@ -10,14 +10,14 @@ const API_BASE_URL = "http://localhost:5001/api/images";
 
 export default function ImagesPage() {
   const [imageData, setImageData] = useState([]);
-  const [activeTag, setActiveTag] = useState("All");
-  const [lightbox, setLightbox] = useState(null);
   const [loaded, setLoaded] = useState({});
   const [cols, setCols] = useState(3);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const gridRef = useRef(null);
+  const columns = Array.from({ length: cols }, () => []);
+  const colHeights = Array(cols).fill(0);
 
+  // Fetches images from backend API on component mount
   useEffect(() => {
     async function fetchImages() {
       try {
@@ -35,7 +35,6 @@ export default function ImagesPage() {
           id: img._id || `img-${index}`,
           src: img.src || "",
           alt: img.alt || "Gallery image",
-          tag: img.tag || "Gallery",
           height: img.height || 300,
         }));
 
@@ -51,59 +50,33 @@ export default function ImagesPage() {
     fetchImages();
   }, []);
 
-  const allTags = useMemo(
-    () => ["All", ...Array.from(new Set(imageData.map((img) => img.tag)))],
-    [imageData]
-  );
-
+  // Responsive column calculation based on window width
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
       setCols(w < 600 ? 1 : w < 900 ? 2 : w < 1300 ? 3 : 4);
     };
 
+    // Initial column setup and event listener for window resize
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const filtered =
-    activeTag === "All"
-      ? imageData
-      : imageData.filter((img) => img.tag === activeTag);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === "Escape") setLightbox(null);
-
-      if (lightbox !== null && filtered.length > 0) {
-        if (e.key === "ArrowRight") {
-          setLightbox((i) => (i + 1) % filtered.length);
-        }
-
-        if (e.key === "ArrowLeft") {
-          setLightbox((i) => (i - 1 + filtered.length) % filtered.length);
-        }
-      }
-    };
-
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox, filtered.length]);
-
-  const columns = Array.from({ length: cols }, () => []);
-  const colHeights = Array(cols).fill(0);
-
-  filtered.forEach((img) => {
+  // Distributes images into columns based on their heights for a masonry layout
+  imageData.forEach((img) => {
     const shortest = colHeights.indexOf(Math.min(...colHeights));
     columns[shortest].push(img);
     colHeights[shortest] += img.height;
   });
 
+  // Marks an image as loaded to trigger CSS animations
   const markLoaded = (id) => {
     setLoaded((prev) => ({ ...prev, [id]: true }));
   };
 
+
+  // Renders the gallery page with a header and a masonry grid of images
   return (
     <div className="images-page">
       <div className="images-header">
@@ -122,112 +95,30 @@ export default function ImagesPage() {
         </div>
       </div>
 
-      <div className="images-filters">
-        <div className="filter-inner">
-          {allTags.map((tag) => (
-            <button
-              key={tag}
-              className={`filter-pill ${activeTag === tag ? "active" : ""}`}
-              onClick={() => {
-                setActiveTag(tag);
-                setLightbox(null);
-              }}
-            >
-              {tag}
-            </button>
+      {/* Pinterest-inspired image wrapping construction */}
+      <div className="masonry-wrap">
+        <div className="masonry-grid" style={{ "--cols": cols }}>
+          {columns.map((col, ci) => (
+            <div className="masonry-col" key={ci}>
+              {col.map((img, idx) => (
+                <div
+                  key={img.id}
+                  className={`masonry-item ${loaded[img.id] ? "loaded" : ""}`}
+                  style={{ animationDelay: `${(ci * col.length + idx) * 60}ms` }}
+                >
+                  <div className="mi-img-wrap">
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      onLoad={() => markLoaded(img.id)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           ))}
         </div>
       </div>
-
-      <div className="masonry-wrap" ref={gridRef}>
-        {loading ? (
-          <p>Loading gallery...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : filtered.length === 0 ? (
-          <p>No images found.</p>
-        ) : (
-          <div className="masonry-grid" style={{ "--cols": cols }}>
-            {columns.map((col, ci) => (
-              <div className="masonry-col" key={ci}>
-                {col.map((img, idx) => {
-                  const globalIdx = filtered.findIndex((item) => item.id === img.id);
-
-                  return (
-                    <div
-                      key={img.id}
-                      className={`masonry-item ${loaded[img.id] ? "loaded" : ""}`}
-                      style={{ animationDelay: `${(ci * col.length + idx) * 60}ms` }}
-                      onClick={() => setLightbox(globalIdx)}
-                    >
-                      <div className="mi-img-wrap">
-                        <img
-                          src={img.src}
-                          alt={img.alt}
-                          loading="lazy"
-                          onLoad={() => markLoaded(img.id)}
-                          onError={(e) => {
-                            e.target.style.display = "none";
-                            e.target.parentNode.classList.add("img-error");
-                            markLoaded(img.id);
-                          }}
-                        />
-                        <div className="mi-placeholder" />
-                      </div>
-
-                      <div className="mi-overlay">
-                        <span className="mi-tag">{img.tag}</span>
-                        <p className="mi-alt">{img.alt}</p>
-                        <span className="mi-zoom">⊕</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {lightbox !== null && filtered[lightbox] && (
-        <div className="lightbox" onClick={() => setLightbox(null)}>
-          <button className="lb-close" onClick={() => setLightbox(null)}>
-            ✕
-          </button>
-
-          <button
-            className="lb-arrow lb-prev"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightbox((i) => (i - 1 + filtered.length) % filtered.length);
-            }}
-          >
-            ‹
-          </button>
-
-          <div className="lb-inner" onClick={(e) => e.stopPropagation()}>
-            <img src={filtered[lightbox].src} alt={filtered[lightbox].alt} />
-            <div className="lb-caption">
-              <span className="lb-tag">{filtered[lightbox].tag}</span>
-              <p>{filtered[lightbox].alt}</p>
-              <span className="lb-counter">
-                {lightbox + 1} / {filtered.length}
-              </span>
-            </div>
-          </div>
-
-          <button
-            className="lb-arrow lb-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              setLightbox((i) => (i + 1) % filtered.length);
-            }}
-          >
-            ›
-          </button>
-        </div>
-      )}
-
       <Footer />
     </div>
   );
