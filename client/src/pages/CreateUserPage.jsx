@@ -1,3 +1,11 @@
+/*
+  Page for creating a new user account.
+*/
+
+/*
+  TODO: BACKEND IMPLEMENTATION FOR CREATING AN ACCOUNT
+*/
+
 import React, { useState } from 'react';
 import './login.css';
 
@@ -9,23 +17,27 @@ export default function CreateUserPage({ onBack }) {
   const [error, setError]               = useState('');
   const [success, setSuccess]           = useState(false);
 
+  // Handles the submit process ***NEEDS BACKEND IMPLEMENTATION*** CURRENTLY JUST LOGS TO CONSOLE AND SHOWS SUCCESS MESSAGE
   const handleSubmit = () => {
-    // Basic validation
+    // Basic validation to make sure all fields are filled
     if (!username || !email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
       return;
     }
+    
+    // Validation to check if password and confirm password match
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
 
-    // Placeholder: in a real app, send registration data to your backend here
+    // PASSES USER THROUGH WITH NO VALIDATION OR BACKEND CALLS -- ***NEEDS BACKEND IMPLEMENTATION***
     console.log('Creating user:', { username, email, password });
     setError('');
     setSuccess(true);
   };
 
+  // Renders success message if account creation is successful, otherwise renders the create user form.
   if (success) {
     return (
       <div className="loginContainer">
@@ -40,6 +52,7 @@ export default function CreateUserPage({ onBack }) {
     );
   }
 
+  // Renders create user form.
   return (
     <div className="loginContainer">
       <h1 className="welcome">Create an Account</h1>
