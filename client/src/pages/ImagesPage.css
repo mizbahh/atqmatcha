@@ -7,7 +7,7 @@
   min-height: 100vh;
 }
 
-/* ─── Header ──────────────────────────────────────────── */
+/* Header */
 .images-header {
   position: relative;
   background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 50%, #3d7a35 100%);
@@ -48,7 +48,7 @@
   line-height: 1.7;
 }
 
-/* ─── Filters ─────────────────────────────────────────── */
+/* Filters */
 .images-filters {
   background: var(--cream);
   padding: 1.75rem 2rem;
@@ -92,7 +92,7 @@
   border-color: var(--green-deep);
 }
 
-/* ─── Masonry Grid ────────────────────────────────────── */
+/* Masonry Grid */
 .masonry-wrap {
   max-width: 1400px;
   margin: 0 auto;
@@ -223,12 +223,13 @@
   display: block;
 }
 .mi-alt {
-  font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-family: cursive;
+  font-size: 2.3rem;
   font-weight: 400;
   color: var(--cream);
   line-height: 1.3;
   margin-bottom: 0.5rem;
+  -webkit-text-stroke: black 0.5px;
 }
 .mi-zoom {
   font-size: 1.1rem;
