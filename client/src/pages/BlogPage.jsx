@@ -99,11 +99,6 @@ export default function BlogPage() {
               <div className="fp-meta">{featured.date} · {featured.readTime} read</div>
               <button className="btn-primary fp-btn">Read More →</button>
             </div>
-            <div className="fp-visual">
-              <div className="fp-deco">
-                <span>抹茶</span>
-              </div>
-            </div>
           </div>
         )}
 
