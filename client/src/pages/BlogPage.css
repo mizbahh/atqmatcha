@@ -13,7 +13,6 @@
   border-radius: var(--radius);
   padding: 3rem;
   display: grid;
-  grid-template-columns: 1fr 200px;
   gap: 2rem;
   align-items: center;
   margin-bottom: 2.5rem;
@@ -22,7 +21,12 @@
   overflow: hidden;
   position: relative;
 }
-.featured-post:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(26,46,26,0.25); }
+
+.featured-post:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 16px 48px rgba(26,46,26,0.25); 
+}
+
 @media (max-width: 700px) { .featured-post { grid-template-columns: 1fr; } }
 
 .featured-tag { background: rgba(201,168,76,0.15) !important; color: var(--gold) !important; }
@@ -33,6 +37,11 @@
   font-weight: 300; color: var(--cream); line-height: 1.2;
   margin: 0.75rem 0 1rem;
 }
+
+.fp-content {
+  align-self: center;
+}
+
 .fp-excerpt { font-size: 0.88rem; color: rgba(249,245,238,0.65); line-height: 1.7; margin-bottom: 1rem; }
 .fp-meta { font-size: 0.72rem; color: rgba(249,245,238,0.4); letter-spacing: 0.08em; margin-bottom: 1.5rem; }
 .fp-btn { font-size: 0.78rem !important; padding: 0.65rem 1.5rem !important; }
