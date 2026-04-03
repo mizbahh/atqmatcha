@@ -28,8 +28,8 @@ export async function getEventByID(req, res)
 export async function createEvent(req, res)
 {
    try {
-    const {title, description, address, date, time} = req.body
-    const newEvent = new event({title: title, description: description, address: address, date: date, time: time })
+    const {name, email, phoneNum, eventType, expectedGuests, preferredDate, eventLocation, additionalNotes, howHeardAbout} = req.body
+    const newEvent = new event({name:name, email:email, phoneNum:phoneNum, eventType:eventType, expectedGuests:expectedGuests, preferredDate:preferredDate, eventLocation:eventLocation, additionalNotes:additionalNotes, howHeardAbout:howHeardAbout })
     
     const savedEvent = await newEvent.save()
 
@@ -46,10 +46,10 @@ export async function createEvent(req, res)
 export async function updateEvent(req, res)
 {
     try {
-        const {title, description, address, date, time} = req.body
+        const {name, email, phoneNum, eventType, expectedGuests, preferredDate, eventLocation, additionalNotes, howHeardAbout} = req.body
         const updatedEvent = await event.findByIdAndUpdate(
             req.params.id,
-            {title, description, address, date, time},
+            {name, email, phoneNum, eventType, expectedGuests, preferredDate, eventLocation, additionalNotes, howHeardAbout},
             {new: true,}
         )
 
