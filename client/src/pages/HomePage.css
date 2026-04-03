@@ -2,10 +2,10 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
-/* Hero */
+/* ─── Hero ────────────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -46,11 +46,10 @@
   position: relative;
   z-index: 2;
   flex: 1;
-  max-width: 660px;
+  max-width: 580px;
   padding-right: 2rem;
 }
 
-/* Top text in hero */
 .hero-eyebrow {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
@@ -68,7 +67,6 @@
   color: var(--cream);
   margin-bottom: 1.5rem;
 }
-
 .title-line { display: block; }
 .title-line.accent { color: var(--green-pale); font-style: italic; }
 
@@ -76,17 +74,16 @@
   font-size: 1rem;
   line-height: 1.7;
   color: rgba(249, 245, 238, 0.75);
-  max-width: 450px;
+  max-width: 440px;
   margin-bottom: 2.5rem;
 }
 
-/* Buttons under text */
 .hero-cta {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
 }
- 
+
 /* ─── Hero Visual (bowl) ──────────────────────────────── */
 .hero-visual {
   position: relative;
