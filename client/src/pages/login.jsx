@@ -27,11 +27,11 @@ export default function LoginPage() {
     // Renders login form
     return (
         <div className="loginContainer">
-            <h1 className="welcome">Welcome to ATQ Matcha</h1>
+            <h1 className="welcome">welcome to atq matcha</h1>
 
             <form className="loginField">
                 <div>
-                    <label className="username">Username:</label>
+                    <label className="username">username:</label>
                     <input
                         id="username"
                         type="text"
@@ -42,7 +42,7 @@ export default function LoginPage() {
                 </div>
 
                 <div>
-                    <label htmlFor="password">Password:</label>
+                    <label htmlFor="password">password:</label>
                     <input
                         id="password"
                         type="password"
@@ -52,10 +52,10 @@ export default function LoginPage() {
                     />
                 </div>
 
-                <button type="button" className="loginButton" onClick={handleLogin}>Login</button>
+                <button type="button" className="loginButton" onClick={handleLogin}>login</button>
 
             </form>
-            <button type="button" className="createUserButton" onClick={handleCreateUser}>Create New User</button>
+            <button type="button" className="createUserButton" onClick={handleCreateUser}>create new user</button>
         </div>
     );
 }

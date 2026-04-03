@@ -6,8 +6,32 @@
   THIS IS A PLACEHOLDER AI GENERATED FRONTEND FOR THE PURPOSE OF TESTING FUNCTIONALITY.
 */
 
-/*@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap');
 
+/* ─── Tokens ─────────────────────────────────────────── */
+:root {
+  --green-deep:   #1a2e1a;
+  --green-mid:    #2d5a27;
+  --green-bright: #4a8c3f;
+  --green-pale:   #c8e6c2;
+  --green-mist:   #eef6ec;
+  --cream:        #f9f5ee;
+  --sand:         #e8dcc8;
+  --gold:         #c9a84c;
+  --text-dark:    #1a2010;
+  --text-mid:     #3d4a38;
+  --text-light:   #6b7a64;
+  --logo-green: #97c79d;
+  --logo-purple: #dee9f4;
+  --dark-grey: #545454;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Zen Kaku Gothic New', sans-serif;
+
+  --nav-h: 68px;
+  --radius: 16px;
+  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
