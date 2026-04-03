@@ -2,6 +2,10 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
+/*
+  TODO: PROPERLY IMPLEMENT BACKEND FOR LOADING REVIEWS AND ADDING REVIEWS
+*/
+
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import "./ReviewsPage.css";

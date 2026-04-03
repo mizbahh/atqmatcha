@@ -2,6 +2,10 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
+/*
+  TODO: REMOVE MANY FEATURES, PROPERLY IMPLEMENT BACKEND FOR LOADING ITEMS, IMPLEMENT CART FUNCTIONALITY
+*/
+
 import { useState } from "react";
 import Footer from "../components/Footer";
 import menuData from "../data/menuData";

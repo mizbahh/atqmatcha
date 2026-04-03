@@ -2,6 +2,10 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
+/*
+  TODO: EDIT PAGE TO DESIGN LIKING
+*/
+
 import Footer from "../components/Footer";
 import "./HomePage.css";
 
