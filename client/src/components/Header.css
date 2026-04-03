@@ -1,16 +1,16 @@
 /*
   AI generated frontend for testing functionality. Not intended for production use.
 */
-/*
+
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--nav-h);
   z-index: 100;
   transition: background var(--transition), box-shadow var(--transition);
-  background: transparent;
+  background: white;
 }
-*/
+
 .navbar.scrolled {
   background: rgba(249, 245, 238, 0.92);
   backdrop-filter: blur(12px);

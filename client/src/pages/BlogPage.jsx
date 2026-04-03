@@ -127,42 +127,18 @@ export default function BlogPage() {
       </div>
 
       <div className="blog-body">
-        {loading && <p>Loading announcements...</p>}
-        {error && <p>{error}</p>}
-
-        {!loading && !error && (
-          <>
-            {activeTag === "All" && featured && (
-              <div className="featured-post" onClick={() => setOpenPost(featured)}>
-                <div className="fp-content">
-                  <span className="post-tag featured-tag">{featured.tag}</span>
-                  <h2 className="fp-title">{featured.title}</h2>
-                  <p className="fp-excerpt">{featured.excerpt}</p>
-                  <div className="fp-meta">
-                    {featured.date} · {featured.readTime} read
-                  </div>
-                  <button className="btn-primary fp-btn">Read More →</button>
-                </div>
-
-                <div className="fp-visual">
-                  <div className="fp-deco">
-                    <span>抹茶</span>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div className="blog-filters">
-              {allTags.map((tag) => (
-                <button
-                  key={tag}
-                  className={`filter-pill ${activeTag === tag ? "active" : ""}`}
-                  onClick={() => setActiveTag(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
+        {/* Featured post */}
+        {activeTag === "All" && featured && (
+          <div className="featured-post" onClick={() => setOpenPost(featured)}>
+            <div className="fp-content">
+              <span className="post-tag featured-tag">{featured.tag}</span>
+              <h2 className="fp-title">{featured.title}</h2>
+              <p className="fp-excerpt">{featured.excerpt}</p>
+              <div className="fp-meta">{featured.date} · {featured.readTime} read</div>
+              <button className="btn-primary fp-btn">Read More →</button>
             </div>
+          </div>
+        )}
 
             <div className="blog-grid">
               {rest.map((post, i) => (
