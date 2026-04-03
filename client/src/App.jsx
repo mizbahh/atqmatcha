@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 import Navbar      from "./components/Header.jsx";
-import ComingSoon  from "./components/ComingSoon.jsx";
 import HomePage    from "./pages/HomePage.jsx";
 import ImagesPage  from "./pages/ImagesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage.jsx";
@@ -56,7 +55,6 @@ export default function App() {
       case "blog":     return <BlogPage />;
       default: {
         const t = tabs.find((t) => t.id === activeTab);
-        return <ComingSoon title={t?.label} />;
       }
     }
   };
