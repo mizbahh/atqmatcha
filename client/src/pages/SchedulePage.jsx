@@ -2,6 +2,11 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
+/*
+  TODO: ADD BACKEND FUNCTIONALITY FOR CALENDAR EVENTS, MAYBE ADD ADMIN FUNCTIONALITY TO BE ABLE TO ADD AND DELETE EVENTS
+  ALSO PROBABLY CHECK AGAINST USER TIME/DATE AND SEE IF EVENT HAS ALREADY PASSED, AND NOT RENDER IF SO
+*/
+
 import { useState } from "react";
 import Footer from "../components/Footer";
 import "./SchedulePage.css";

@@ -3,7 +3,7 @@
 */
 
 /* 
-  TODO: FIX FEATURED POST FUNCTIONALITY
+  TODO: FIX FEATURED POST FUNCTIONALITY + ADD ADMIN FUNCTIONALITY
 */
 
 import { useEffect, useMemo, useState } from "react";
