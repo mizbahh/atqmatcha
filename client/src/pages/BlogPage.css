@@ -60,12 +60,6 @@
   color: var(--green-pale); opacity: 0.6;
 }
 
-/* ─── Filters ─────────────────────────────────────────── */
-.blog-filters {
-  display: flex; gap: 0.5rem; flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
 /* ─── Blog Card Grid ──────────────────────────────────── */
 .blog-grid {
   display: grid;
