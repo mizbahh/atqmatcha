@@ -8,7 +8,7 @@ router.get("/", getAllReviews);
 
 router.get("/:id", getReviewByID);
 
-router.post("/", auth, createReview);
+router.post("/", createReview);
 
 router.put("/:id", auth, updateReview);
 
