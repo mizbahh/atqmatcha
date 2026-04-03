@@ -1,46 +1,49 @@
 import mongoose from "mongoose";
 
-
-//1 - Create a schema
-
-//2 - Create model based from the schema
-
-
 const reviewSchema = new mongoose.Schema(
-{
-    title: { //Title of review
-        type:String, 
-        required: true
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true
     },
-    content: { //Content of the review
-        type:String,
-        required:true
+    title: {
+      type: String,
+      required: true,
+      trim: true
     },
-    rating:{ //"star" rating, can be 0 through 5
-        type:Number,
-        required: true,
-        default:0,
-        min: 0,
-        max: 5
+    content: {
+      type: String,
+      required: true,
+      trim: true
     },
-    customerId:{
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "user"
-
-
+    rating: {
+      type: Number,
+      required: true,
+      default: 0,
+      min: 0,
+      max: 5
+    },
+    customerId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "user",
+      default: null
+    },
+    displayDate: {
+      type: String,
+      default: "",
+      trim: true
     }
-
-},
-{
-    timestamps:
-    {
-        createdAt: 'createdOn', //When the review item was created
-        updatedAt: 'lastModified' //last time the review was updated
+  },
+  {
+    timestamps: {
+      createdAt: "createdOn",
+      updatedAt: "lastModified"
     }
-}
+  }
 );
 
 const review = mongoose.model("review", reviewSchema);
 
-export default review
+export default review;
