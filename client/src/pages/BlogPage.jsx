@@ -1,3 +1,11 @@
+/*
+  Blog page that fetches announcements from the backend and displays them in a blog format.
+*/
+
+/* 
+  TODO: FIX FEATURED POST FUNCTIONALITY
+*/
+
 import { useEffect, useMemo, useState } from "react";
 import Footer from "../components/Footer";
 import "./BlogPage.css";

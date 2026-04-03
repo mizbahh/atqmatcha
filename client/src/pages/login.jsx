@@ -1,3 +1,12 @@
+/*
+    Login page for the app, first page when user loads the site.
+*/
+
+/*
+    TODO: IMPLEMENT BACKEND FOR VALIDATING USERS && CREATE SOME ERROR HANDING FOR IF NO USER IS FOUND OR PASSWORD IS INCORRECT 
+    (DONT TELL USER WHICH ISSUE, INSTEAD PUSH TO CONSOLE FOR TROUBLESHOOTING)
+*/
+
 const API_URL = import.meta.env.VITE_API_URL;
 import React, { useState } from 'react';
 import './login.css';
@@ -12,12 +21,14 @@ export default function LoginPage() {
     if (view === 'app')        return <App />;
     if (view === 'createUser') return <CreateUserPage onBack={() => setView('login')} />;
 
+    // Handles login click ***NEEDS BACKEND IMPLEMENTATION*** CURRENTLY JUST LOGS TO CONSOLE AND PASSES USER TO APP
     const handleLogin = () => {
         console.log('handleLogin called');
         console.log(`Logging in with username: ${username} and password: ${password}`);
         setView('app');
     };
 
+    // Swaps from login page to createUser page
     const handleCreateUser = () => {
         console.log('handleCreateUser called');
         setView('createUser');
