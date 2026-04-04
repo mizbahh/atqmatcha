@@ -4,7 +4,9 @@
 
 .navbar {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0; 
+  left: 0; 
+  right: 0;
   height: var(--nav-h);
   z-index: 100;
   transition: background var(--transition), box-shadow var(--transition);
@@ -79,7 +81,12 @@
   transition: color var(--transition), background var(--transition);
   white-space: nowrap;
 }
-.nav-tab:hover { color: var(--green-mid); background: rgba(74, 140, 63, 0.07); }
+
+.nav-tab:hover { 
+  color: var(--green-mid); 
+  background: rgba(74, 140, 63, 0.07); 
+}
+
 .nav-tab.active {
   color: var(--green-deep);
   font-weight: 700;
@@ -95,6 +102,7 @@
   cursor: pointer;
   padding: 4px;
 }
+
 .hamburger span {
   display: block;
   width: 24px;
@@ -105,7 +113,10 @@
 }
 
 @media (max-width: 860px) {
-  .hamburger { display: flex; }
+  .hamburger { 
+    display: flex; 
+  }
+  
   .nav-tabs {
     position: fixed;
     top: var(--nav-h);
@@ -120,6 +131,13 @@
     transition: transform var(--transition);
     box-shadow: 0 8px 32px rgba(26, 46, 26, 0.12);
   }
-  .nav-tabs.open { transform: translateY(0); }
-  .nav-tab { padding: 0.75rem 1rem; font-size: 0.9rem; }
+
+  .nav-tabs.open { 
+    transform: translateY(0); 
+  }
+
+  .nav-tab { 
+    padding: 0.75rem 1rem; 
+    font-size: 0.9rem; 
+  }
 }

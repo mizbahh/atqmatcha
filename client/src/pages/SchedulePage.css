@@ -2,52 +2,146 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
-.schedule-page { background: var(--cream); min-height: 100vh; }
+.schedule-page { 
+  background: var(--cream); 
+  min-height: 100vh; 
+}
 
 
-/* ─── Schedule Body ───────────────────────────────────── */
-.schedule-body { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-.schedule-layout { display: grid; grid-template-columns: 340px 1fr; gap: 3rem; align-items: start; }
-@media (max-width: 860px) { .schedule-layout { grid-template-columns: 1fr; } }
+/* Schedule Body */
+.schedule-body { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 3rem 2rem 5rem; 
+}
+
+.schedule-layout { 
+  display: grid; 
+  grid-template-columns: 340px 1fr; 
+  gap: 3rem; 
+  align-items: start; 
+}
+
+@media (max-width: 860px) { 
+  .schedule-layout { 
+    grid-template-columns: 1fr; 
+  } 
+}
 
 
-/* ─── Event List ──────────────────────────────────────── */
+/* Event List */
 .el-heading {
-  font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
-  color: var(--green-deep); margin-bottom: 1.25rem;
+  font-family: var(--font-display); 
+  font-size: 1.6rem; 
+  font-weight: 400;
+  color: var(--green-deep); 
+  margin-bottom: 1.25rem;
 }
+
 .el-empty {
-  text-align: center; padding: 3rem 1rem; color: var(--text-light);
+  text-align: center; 
+  padding: 3rem 1rem; 
+  color: var(--text-light);
 }
-.el-empty span { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
-.el-empty p    { font-size: 0.88rem; line-height: 1.7; }
-.inline-link { background: none; border: none; color: var(--green-mid); cursor: pointer; font-size: inherit; text-decoration: underline; }
+
+.el-empty span { 
+  font-size: 2rem; 
+  display: block; 
+  margin-bottom: 0.75rem; 
+}
+
+.el-empty p { 
+  font-size: 0.88rem; 
+  line-height: 1.7; 
+}
+
+.inline-link { 
+  background: none; 
+  border: none; 
+  color: var(--green-mid); 
+  cursor: pointer; 
+  font-size: inherit; 
+  text-decoration: underline; 
+}
 
 .event-card {
-  display: flex; gap: 1rem; align-items: flex-start;
-  background: #fff; border: 1px solid rgba(26,46,26,0.07);
-  border-radius: var(--radius); padding: 1.25rem;
+  display: flex; 
+  gap: 1rem; 
+  align-items: flex-start;
+  background: #fff; 
+  border: 1px solid rgba(26,46,26,0.07);
+  border-radius: var(--radius); 
+  padding: 1.25rem;
   margin-bottom: 1rem;
   transition: transform var(--transition), box-shadow var(--transition);
   animation: cardIn 0.4s cubic-bezier(0.22,1,0.36,1) both;
 }
-.event-card:hover { transform: translateX(4px); box-shadow: 0 4px 20px rgba(26,46,26,0.08); }
+
+.event-card:hover { 
+  transform: translateX(4px); 
+  box-shadow: 0 4px 20px rgba(26,46,26,0.08); 
+}
 
 .ec-left {
-  display: flex; flex-direction: column; align-items: center;
-  border: 1.5px solid; border-radius: 10px;
-  padding: 0.5rem 0.85rem; flex-shrink: 0; min-width: 56px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  border: 1.5px solid; 
+  border-radius: 10px;
+  padding: 0.5rem 0.85rem; 
+  flex-shrink: 0; 
+  min-width: 56px;
 }
-.ec-month { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
-.ec-day   { font-family: var(--font-display); font-size: 1.7rem; line-height: 1.1; }
 
-.ec-info { flex: 1; }
-.ec-type  { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
-.ec-name  { font-family: var(--font-display); font-size: 1.15rem; font-weight: 400; color: var(--green-deep); margin: 0.25rem 0 0.4rem; }
-.ec-meta  { font-size: 0.78rem; color: var(--text-light); margin-bottom: 0.2rem; }
-.ec-note  { font-size: 0.78rem; color: var(--text-mid); margin-top: 0.4rem; font-style: italic; }
+.ec-month { 
+  font-size: 0.58rem; 
+  letter-spacing: 0.12em; 
+  text-transform: uppercase; 
+  font-weight: 700; 
+}
+
+.ec-day { 
+  font-family: var(--font-display); 
+  font-size: 1.7rem; 
+  line-height: 1.1; 
+}
+
+.ec-info { 
+  flex: 1; 
+}
+
+.ec-type  { 
+  font-size: 0.6rem; 
+  font-weight: 700; 
+  letter-spacing: 0.12em; 
+  text-transform: uppercase; 
+}
+
+.ec-name  { 
+  font-family: var(--font-display); 
+  font-size: 1.15rem; 
+  font-weight: 400; 
+  color: var(--green-deep); 
+  margin: 0.25rem 0 0.4rem; 
+}
+
+.ec-meta  { 
+  font-size: 0.78rem; 
+  color: var(--text-light); 
+  margin-bottom: 0.2rem; 
+}
+
+.ec-note  { 
+  font-size: 0.78rem; 
+  color: var(--text-mid); 
+  margin-top: 0.4rem; 
+  font-style: italic; 
+}
 
 .ec-btn {
-  align-self: center; font-size: 0.75rem !important;
-  padding: 0.5rem 1rem !important; white-space: nowrap; flex-shrink: 0;
+  align-self: center; 
+  font-size: 0.75rem !important;
+  padding: 0.5rem 1rem !important; 
+  white-space: nowrap; 
+  flex-shrink: 0;
 }

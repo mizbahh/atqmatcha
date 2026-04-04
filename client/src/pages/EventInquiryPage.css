@@ -2,97 +2,245 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
-.inquiry-page { background: var(--cream); min-height: 100vh; }
+.inquiry-page { 
+  background: var(--cream); 
+  min-height: 100vh; 
+}
 
-/* ─── Why Strip ───────────────────────────────────────── */
-.why-strip { background: var(--green-deep); padding: 3rem 2rem; }
+/* Why Strip */
+.why-strip { 
+  background: var(--green-deep); 
+  padding: 3rem 2rem; 
+}
+
 .why-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 1.5rem;
+  max-width: 1100px; 
+  margin: 0 auto;
+  display: grid; 
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); 
+  gap: 1.5rem;
 }
-.why-card { text-align: center; }
-.why-icon { font-size: 1.8rem; display: block; margin-bottom: 0.75rem; }
-.why-card h4 { font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; color: var(--cream); margin-bottom: 0.4rem; letter-spacing: 0.04em; }
-.why-card p  { font-size: 0.78rem; color: rgba(249,245,238,0.6); line-height: 1.6; }
 
-/* ─── Body ────────────────────────────────────────────── */
-.inquiry-body { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-.inquiry-layout { display: grid; grid-template-columns: 1fr 320px; gap: 3rem; align-items: start; }
-@media (max-width: 860px) { .inquiry-layout { grid-template-columns: 1fr; } }
+.why-card { 
+  text-align: center; 
+}
 
-/* ─── Form ────────────────────────────────────────────── */
+.why-icon { 
+  font-size: 1.8rem; 
+  display: block; 
+  margin-bottom: 0.75rem; 
+}
+
+.why-card h4 { 
+  font-family: var(--font-body); 
+  font-size: 0.85rem; 
+  font-weight: 700; 
+  color: var(--cream); 
+  margin-bottom: 0.4rem; 
+  letter-spacing: 0.04em; 
+}
+
+.why-card p { 
+  font-size: 0.78rem; 
+  color: rgba(249,245,238,0.6); 
+  line-height: 1.6; 
+}
+
+/* Body */
+.inquiry-body { 
+  max-width: 1100px; 
+  margin: 0 auto; 
+  padding: 3rem 2rem 5rem; 
+}
+
+.inquiry-layout { 
+  display: grid; 
+  grid-template-columns: 1fr 320px; 
+  gap: 3rem; 
+  align-items: start; 
+}
+
+@media (max-width: 860px) { 
+  .inquiry-layout { 
+    grid-template-columns: 1fr; 
+  } 
+}
+
+/* Form */
 .inquiry-form h2 {
-  font-family: var(--font-display); font-size: 2.2rem; font-weight: 300;
-  color: var(--green-deep); margin-bottom: 0.5rem;
+  font-family: var(--font-display); 
+  font-size: 2.2rem; 
+  font-weight: 300;
+  color: var(--green-deep); 
+  margin-bottom: 0.5rem;
 }
-.form-intro { font-size: 0.88rem; color: var(--text-light); margin-bottom: 2rem; line-height: 1.6; }
+
+.form-intro { 
+  font-size: 0.88rem; 
+  color: var(--text-light); 
+  margin-bottom: 2rem; 
+  line-height: 1.6; 
+}
 
 .if-section-label {
-  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--green-bright); border-bottom: 1px solid rgba(74,140,63,0.15);
-  padding-bottom: 0.5rem; margin: 1.5rem 0 1rem;
+  font-size: 0.68rem; 
+  font-weight: 700; 
+  letter-spacing: 0.16em; 
+  text-transform: uppercase;
+  color: var(--green-bright); 
+  border-bottom: 1px solid rgba(74,140,63,0.15);
+  padding-bottom: 0.5rem; 
+  margin: 1.5rem 0 1rem;
 }
-.if-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-@media (max-width: 600px) { .if-row { grid-template-columns: 1fr; } }
 
-.if-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
-.if-field label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
-.if-field input,
-.if-field select,
-.if-field textarea {
-  font-family: var(--font-body); font-size: 0.9rem; color: var(--text-dark);
-  background: #fff; border: 1.5px solid rgba(26,46,26,0.1); border-radius: 8px;
-  padding: 0.7rem 1rem; resize: vertical; outline: none;
+.if-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem; 
+}
+
+@media (max-width: 600px) { 
+  .if-row { 
+    grid-template-columns: 1fr; 
+  } 
+}
+
+.if-field { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.4rem; 
+  margin-bottom: 1rem; 
+}
+
+.if-field label { 
+  font-size: 0.72rem; 
+  font-weight: 700; 
+  letter-spacing: 0.08em; 
+  text-transform: uppercase; 
+  color: var(--text-light); 
+}
+
+.if-field input, .if-field select, .if-field textarea {
+  font-family: var(--font-body); 
+  font-size: 0.9rem; 
+  color: var(--text-dark);
+  background: #fff;
+  border: 1.5px solid rgba(26,46,26,0.1); 
+  border-radius: 8px;
+  padding: 0.7rem 1rem; 
+  resize: vertical; 
+  outline: none;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
-.if-field input:focus,
-.if-field select:focus,
-.if-field textarea:focus {
+
+.if-field input:focus, .if-field select:focus, .if-field textarea:focus {
   border-color: var(--green-bright);
   box-shadow: 0 0 0 3px rgba(74,140,63,0.1);
 }
-.if-field select { cursor: pointer; }
+
+.if-field select { 
+  cursor: pointer; 
+}
+
 .if-error {
-  color: #c0392b; font-size: 0.82rem; margin-bottom: 0.75rem;
-  padding: 0.5rem 0.75rem; background: #fdecea; border-radius: 6px;
+  color: #c0392b; 
+  font-size: 0.82rem; 
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 0.75rem; 
+  background: #fdecea; 
+  border-radius: 6px;
   border-left: 3px solid #c0392b;
 }
 
-/* ─── FAQ Sidebar ─────────────────────────────────────── */
+/* FAQ Sidebar */
 .faq-sidebar {
-  position: sticky; top: calc(var(--nav-h) + 1.5rem);
-  background: #fff; border: 1px solid rgba(26,46,26,0.07);
-  border-radius: var(--radius); padding: 1.5rem; overflow: hidden;
-}
-.faq-sidebar h3 {
-  font-family: var(--font-display); font-size: 1.4rem; font-weight: 400;
-  color: var(--green-deep); margin-bottom: 1.25rem;
-  padding-bottom: 0.75rem; border-bottom: 1px solid rgba(26,46,26,0.07);
-}
-.faq-item { border-bottom: 1px solid rgba(26,46,26,0.06); }
-.faq-q {
-  width: 100%; background: none; border: none; cursor: pointer;
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem;
-  padding: 0.9rem 0; text-align: left;
-  font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
-  color: var(--green-deep); transition: color var(--transition);
-}
-.faq-q:hover { color: var(--green-bright); }
-.faq-q.open   { color: var(--green-bright); }
-.faq-chevron  { font-size: 1.1rem; flex-shrink: 0; font-weight: 300; }
-.faq-a {
-  font-size: 0.8rem; color: var(--text-mid); line-height: 1.7;
-  padding-bottom: 0.9rem; animation: slideDown 0.25s ease;
+  position: sticky; 
+  top: calc(var(--nav-h) + 1.5rem);
+  background: #fff; 
+  border: 1px solid rgba(26,46,26,0.07);
+  border-radius: var(--radius); 
+  padding: 1.5rem; 
+  overflow: hidden;
 }
 
-/* ─── Success Screen ──────────────────────────────────── */
+.faq-sidebar h3 {
+  font-family: var(--font-display); 
+  font-size: 1.4rem; 
+  font-weight: 400;
+  color: var(--green-deep); 
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem; 
+  border-bottom: 1px solid rgba(26,46,26,0.07);
+}
+
+.faq-item { 
+  border-bottom: 1px solid rgba(26,46,26,0.06); 
+}
+
+.faq-q {
+  width: 100%; 
+  background: none; 
+  border: none; 
+  cursor: pointer;
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-start; 
+  gap: 0.75rem;
+  padding: 0.9rem 0; 
+  text-align: left;
+  font-family: var(--font-body); 
+  font-size: 0.82rem; 
+  font-weight: 700;
+  color: var(--green-deep); 
+  transition: color var(--transition);
+}
+
+.faq-q:hover { 
+  color: var(--green-bright); 
+}
+
+.faq-q.open { 
+  color: var(--green-bright); 
+}
+
+.faq-chevron { 
+  font-size: 1.1rem; 
+  flex-shrink: 0; 
+  font-weight: 300; 
+}
+
+.faq-a {
+  font-size: 0.8rem; 
+  color: var(--text-mid); 
+  line-height: 1.7;
+  padding-bottom: 0.9rem; 
+  animation: slideDown 0.25s ease;
+}
+
+/* Success Screen */
 .submit-success {
-  text-align: center; padding: 5rem 2rem;
-  max-width: 500px; margin: 0 auto;
+  text-align: center; 
+  padding: 5rem 2rem;
+  max-width: 500px; 
+  margin: 0 auto;
 }
-.submit-success span { font-size: 4rem; display: block; margin-bottom: 1.5rem; }
+
+.submit-success span { 
+  font-size: 4rem; 
+  display: block; 
+  margin-bottom: 1.5rem; 
+}
+
 .submit-success h2 {
-  font-family: var(--font-display); font-size: 2.5rem; font-weight: 300;
-  color: var(--green-deep); margin-bottom: 1rem;
+  font-family: var(--font-display); 
+  font-size: 2.5rem; 
+  font-weight: 300;
+  color: var(--green-deep); 
+  margin-bottom: 1rem;
 }
-.submit-success p { font-size: 0.95rem; color: var(--text-mid); line-height: 1.7; }
+
+.submit-success p { 
+  font-size: 0.95rem; 
+  color: var(--text-mid); 
+  line-height: 1.7; 
+}

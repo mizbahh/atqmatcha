@@ -33,6 +33,7 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // Fetches announcements from backend
   useEffect(() => {
     async function fetchAnnouncements() {
       try {
@@ -49,7 +50,6 @@ export default function BlogPage() {
 
         const formattedPosts = data.map((post) => ({
           id: post._id,
-          tag: post.tag || "Announcement",
           date: post.displayDate || formatDate(post.createdOn),
           featured: post.featured || false,
           title: post.title || "",
@@ -70,11 +70,6 @@ export default function BlogPage() {
     fetchAnnouncements();
   }, []);
 
-  const allTags = useMemo(
-    () => ["All", ...Array.from(new Set(posts.map((p) => p.tag)))],
-    [posts]
-  );
-
   const filtered =
     activeTag === "All"
       ? posts
@@ -83,6 +78,7 @@ export default function BlogPage() {
   const featured = posts.find((p) => p.featured);
   const rest = filtered.filter((p) => !p.featured || activeTag !== "All");
 
+  // Handles when a user clicks on a post
   if (openPost) {
     return (
       <div className="blog-page">
@@ -92,11 +88,8 @@ export default function BlogPage() {
           </button>
 
           <div className="post-content">
-            <span className="post-tag">{openPost.tag}</span>
             <h1 className="post-title">{openPost.title}</h1>
-            <div className="post-meta">
-              {openPost.date} · {openPost.readTime} read
-            </div>
+            <div className="post-meta">{openPost.date}</div>
 
             <div className="post-body">
               {openPost.body.split("\n").map((line, i) =>
@@ -116,6 +109,7 @@ export default function BlogPage() {
     );
   }
 
+  // Handles when a user is on the main blog page
   return (
     <div className="blog-page">
 

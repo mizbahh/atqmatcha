@@ -18,12 +18,14 @@
   background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 50%, #3d7a35 100%);
 }
 
+/* Glowy orb things in the background (probably remove them) */
 .orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.35;
 }
+
 .orb1 { width: 600px; height: 600px; background: #4a8c3f; top: -200px; right: -100px; animation: drift 12s ease-in-out infinite; }
 .orb2 { width: 400px; height: 400px; background: #c9a84c; bottom: -150px; left: -100px; animation: drift 16s ease-in-out infinite reverse; }
 .orb3 { width: 300px; height: 300px; background: #c8e6c2; top: 50%; left: 35%; animation: drift 10s ease-in-out infinite 2s; }
@@ -69,8 +71,14 @@
   margin-bottom: 1.5rem;
 }
 
-.title-line { display: block; }
-.title-line.accent { color: var(--green-pale); font-style: italic; }
+.title-line { 
+  display: block; 
+}
+
+.title-line.accent { 
+  color: var(--green-pale); 
+  font-style: italic; 
+}
 
 .hero-sub {
   font-size: 1rem;
@@ -138,6 +146,7 @@
   background: rgba(255, 255, 255, 0.25);
   border-radius: 50%;
 }
+
 .f1 { width: 60px; height: 20px; top: 30px;  left: 30px;  filter: blur(6px); animation: swirl 8s  linear infinite; }
 .f2 { width: 40px; height: 14px; top: 70px;  right: 20px; filter: blur(4px); animation: swirl 10s linear infinite reverse; }
 .f3 { width: 80px; height: 16px; bottom: 40px; left: 20px; filter: blur(8px); animation: swirl 12s linear infinite 2s; }
@@ -169,6 +178,7 @@
   white-space: nowrap;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
+
 .tag1 { top: 20px;    right: 0;    animation: floatTag 5s ease-in-out infinite; }
 .tag2 { bottom: 80px; left: -10px; animation: floatTag 6s ease-in-out infinite 1s; }
 .tag3 { bottom: 20px; right: -10px; animation: floatTag 7s ease-in-out infinite 0.5s; }
@@ -192,6 +202,7 @@
   background: var(--cream);
   padding: 6rem 2rem;
 }
+
 .strip-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -200,6 +211,7 @@
   gap: 5rem;
   align-items: center;
 }
+
 .strip-text h2 {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4rem);
@@ -208,17 +220,20 @@
   color: var(--green-deep);
   margin-bottom: 1.5rem;
 }
+
 .strip-text p {
   color: var(--text-mid);
   line-height: 1.8;
   font-size: 0.95rem;
   margin-bottom: 1rem;
 }
+
 .strip-cards {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
 }
+
 .s-card {
   background: var(--green-mist);
   border: 1px solid rgba(74, 140, 63, 0.12);
@@ -229,11 +244,16 @@
   align-items: flex-start;
   transition: transform var(--transition), box-shadow var(--transition);
 }
+
 .s-card:hover {
   transform: translateX(6px);
   box-shadow: 0 4px 20px rgba(74, 140, 63, 0.1);
 }
-.s-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+.s-icon { font-size: 1.6rem; 
+  flex-shrink: 0; 
+}
+
 .s-card h3 {
   font-family: var(--font-body);
   font-size: 0.9rem;
@@ -242,21 +262,31 @@
   margin-bottom: 0.35rem;
   letter-spacing: 0.04em;
 }
-.s-card p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
 
-@media (max-width: 768px) {
-  .strip-inner { grid-template-columns: 1fr; gap: 3rem; }
+.s-card p { 
+  font-size: 0.85rem; 
+  color: var(--text-light); 
+  line-height: 1.6; 
 }
 
-/* ─── Menu Preview ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .strip-inner { 
+    grid-template-columns: 1fr; 
+    gap: 3rem; 
+  }
+}
+
+/* Menu Preview */
 .menu-preview {
   background: var(--green-deep);
   padding: 6rem 2rem;
 }
+
 .mp-inner {
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .section-label {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
@@ -264,6 +294,7 @@
   color: var(--gold);
   margin-bottom: 0.75rem;
 }
+
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -272,12 +303,14 @@
   line-height: 1.05;
   margin-bottom: 3rem;
 }
+
 .drinks-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.25rem;
   margin-bottom: 3rem;
 }
+
 .drink-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -285,12 +318,20 @@
   overflow: hidden;
   transition: transform var(--transition), box-shadow var(--transition);
 }
+
 .drink-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
-.drink-swatch { height: 8px; }
-.drink-info { padding: 1.5rem; }
+
+.drink-swatch { 
+  height: 8px; 
+}
+
+.drink-info { 
+  padding: 1.5rem; 
+}
+
 .drink-tag {
   font-size: 0.65rem;
   letter-spacing: 0.15em;
@@ -298,6 +339,7 @@
   color: var(--gold);
   font-weight: 700;
 }
+
 .drink-info h3 {
   font-family: var(--font-display);
   font-size: 1.4rem;
@@ -305,23 +347,30 @@
   color: var(--cream);
   margin: 0.4rem 0 0.6rem;
 }
+
 .drink-info p {
   font-size: 0.82rem;
   color: rgba(249, 245, 238, 0.6);
   line-height: 1.7;
 }
-.center-btn { display: block; margin: 0 auto; }
 
-/* ─── Testimonial ─────────────────────────────────────── */
+.center-btn { 
+  display: block; 
+  margin: 0 auto; 
+}
+
+/* Testimonial */
 .testimonial {
   background: var(--sand);
   padding: 5rem 2rem;
 }
+
 .t-inner {
   max-width: 760px;
   margin: 0 auto;
   text-align: center;
 }
+
 .t-quote {
   font-family: var(--font-display);
   font-size: 8rem;
@@ -329,6 +378,7 @@
   color: var(--green-pale);
   margin-bottom: 1rem;
 }
+
 blockquote {
   font-family: var(--font-display);
   font-size: clamp(1.4rem, 3vw, 2.2rem);
@@ -338,6 +388,7 @@ blockquote {
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
+
 cite {
   font-size: 0.8rem;
   letter-spacing: 0.1em;
@@ -346,13 +397,14 @@ cite {
   text-transform: uppercase;
 }
 
-/* ─── Next Pop-Up ─────────────────────────────────────── */
+/* Next Pop-Up */
 .next-popup {
   background: var(--green-mist);
   border-top: 1px solid rgba(74, 140, 63, 0.12);
   border-bottom: 1px solid rgba(74, 140, 63, 0.12);
   padding: 4rem 2rem;
 }
+
 .np-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -362,6 +414,7 @@ cite {
   gap: 2rem;
   flex-wrap: wrap;
 }
+
 .np-label {
   font-size: 0.72rem;
   letter-spacing: 0.2em;
@@ -370,6 +423,7 @@ cite {
   margin-bottom: 0.5rem;
   font-weight: 700;
 }
+
 .np-left h2 {
   font-family: var(--font-display);
   font-size: clamp(1.8rem, 4vw, 3rem);
@@ -377,11 +431,13 @@ cite {
   color: var(--green-deep);
   margin-bottom: 0.75rem;
 }
+
 .np-date, .np-addr {
   font-size: 0.9rem;
   color: var(--text-mid);
   margin-bottom: 0.25rem;
 }
+
 .np-right {
   display: flex;
   flex-direction: column;
