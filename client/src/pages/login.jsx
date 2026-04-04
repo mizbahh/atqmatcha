@@ -3,8 +3,6 @@ import './login.css';
 import App from '../App';
 import CreateUserPage from './CreateUserPage';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -51,20 +49,12 @@ export default function LoginPage() {
           />
         </div>
 
-        <button
-          type="button"
-          className="loginButton"
-          onClick={handleLogin}
-        >
+        <button type="button" className="loginButton" onClick={handleLogin}>
           Login
         </button>
       </form>
 
-      <button
-        type="button"
-        className="createUserButton"
-        onClick={handleCreateUser}
-      >
+      <button type="button" className="createUserButton" onClick={handleCreateUser}>
         Create User
       </button>
     </div>

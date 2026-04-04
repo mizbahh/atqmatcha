@@ -8,35 +8,39 @@ import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema(
 {
-    title: { //Title of Event
-        type:String, 
+    name: {  //full name 
+        type:String,
+        required: true, 
         
     },
-    description: { //Description of the Event
-        type:String,
-        required:true
-    },
-    address:{ //Address of the event
+    email:{ //email
         type: String,
         required: true
     },
-    date:{ //Date of the event
-        type:String,
-        required: true,
+    phoneNum:{ //Phone Number
+        type: String,
     },
-    time:{ //Time of the event
+    eventType:{ //Event Type
+        type: String,
+        required: true
+    },
+    expectedGuests:{ //Range of Expected # of Guests
+        type: String,
+    },
+    preferredDate:{ //Preferred Date of Event
         type:String,
         required: true
+    },
+    eventLocation:{ //Event Location / Venue
+        type: String
+    },
+    additionalNotes:{ //Additional info : themes, special requests, accessibility
+        type:String
+    },
+    howHeardAbout:{ //How Did You Hear About Us?
+        type:String
     }
-
 },
-{
-    timestamps:
-    {
-        createdAt: 'createdOn', //When the event item was created
-        updatedAt: 'lastModified' //last time the event was updated
-    }
-}
 );
 
 const event = mongoose.model("event", eventSchema);

@@ -2,6 +2,10 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
+/*
+  TODO: LIKELY NUKE PAGE; IF NOT IMPLEMENT BACKEND AND EDIT FRONTEND
+*/
+
 import { useState } from "react";
 import Footer from "../components/Footer";
 import "./EventInquiryPage.css";

@@ -1,116 +1,129 @@
-import review from "../models/review.js"
+import mongoose from "mongoose";
+import review from "../models/review.js";
 
-export async function getAllReviews(_, res)
-{
-    try {
-        const reviews = await review.find()
-        res.status(200).json(reviews)
-    } catch (error) {
-        console.error("Error in getAllReviews controller", error)
-        res.status(500).json({message:"Internal Server Error"})
-    }
+export async function getAllReviews(_, res) {
+  try {
+    const reviews = await review.find().sort({ createdOn: -1 });
+    res.status(200).json(reviews);
+  } catch (error) {
+    console.error("Error in getAllReviews controller", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
-export async function getReviewByID(req, res)
-{
-    try {
-        const selectedReview = await review.findById(req.params.id)
-        if(!selectedReview)
-            return res.status(404).json({message: "Review Not Found"})
-        res.status(200).json(selectedReview)
-    } catch (error) {
-        console.error("Error in getReviewByID controller", error)
-        res.status(500).json({message:"Internal Server Error"})
+export async function getReviewByID(req, res) {
+  try {
+    const selectedReview = await review.findById(req.params.id);
+
+    if (!selectedReview) {
+      return res.status(404).json({ message: "Review Not Found" });
     }
+
+    res.status(200).json(selectedReview);
+  } catch (error) {
+    console.error("Error in getReviewByID controller", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
+export async function createReview(req, res) {
+  try {
+    const { name, title, content, rating, displayDate } = req.body;
 
-export async function createReview(req, res)
-{
-   try {
-    const {title, content, rating} = req.body
+    if (!name || !content || rating === undefined || rating === null) {
+      return res.status(400).json({
+        message: "Name, content, and rating are required."
+      });
+    }
 
-    if(!req.user)
-        return res.status(403).json({message:"Missing Login"})
+    const fallbackCustomerId = "69c577496e2ee41877eae050";
+
+    const customerId =
+      req.user?.id ||
+      (mongoose.Types.ObjectId.isValid(fallbackCustomerId) ? fallbackCustomerId : null);
 
     const newReview = new review({
-        title: title, 
-        content: content, 
-        rating: rating, 
-        customerId: req.user.id
-    })
-    
-    const savedReview = await newReview.save()
+      name: name.trim(),
+      title: (title || "Review").trim(),
+      content: content.trim(),
+      rating,
+      customerId,
+      displayDate: (displayDate || "").trim()
+    });
 
-    res.status(201).json(savedReview)
+    const savedReview = await newReview.save();
 
-    console.log("Review Created Succesfully");
-
-   } catch (error) {
-        console.error("Error in createReview controller", error)
-        res.status(500).json({message:"Internal Server Error"})
-   }
+    console.log("Review Created Successfully");
+    res.status(201).json(savedReview);
+  } catch (error) {
+    console.error("Error in createReview controller", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
-export async function updateReview(req, res)
-{
-    try {
+export async function updateReview(req, res) {
+  try {
+    const reviewToUpdate = await review.findById(req.params.id);
 
-        const reviewToUpdate = await review.findById(req.params.id);
-
-        if(!reviewToUpdate)
-            return res.status(404).json({message:"Review Not Found"});
-
-         if(req.user.role == "admin" || reviewToUpdate.customerId.toString() == req.user.id){
-            const {title, content, rating} = req.body;
-
-            const updatedReview = await review.findByIdAndUpdate(
-                req.params.id,
-                {title, content, rating},
-                {new: true,}
-            )
-
-            res.status(200).json(updatedReview)
-
-            console.log("Review Updated Succesfully");
-         }
-        else{
-            return res.status(403).json({message: "Not Authorized - User Cannot Delete Other's Reviews"})
-        }
-       
-
-    } catch (error) {
-        console.error("Error in updateReview controller", error)
-        res.status(500).json({message:"Internal Server Error"})
+    if (!reviewToUpdate) {
+      return res.status(404).json({ message: "Review Not Found" });
     }
-    
-    
-    //res.status(200).json({message: "Review  updated successfully!"})
+
+    if (
+      req.user.role === "admin" ||
+      reviewToUpdate.customerId?.toString() === req.user.id
+    ) {
+      const { name, title, content, rating, displayDate } = req.body;
+
+      const updatedReview = await review.findByIdAndUpdate(
+        req.params.id,
+        {
+          ...(name !== undefined ? { name } : {}),
+          ...(title !== undefined ? { title } : {}),
+          ...(content !== undefined ? { content } : {}),
+          ...(rating !== undefined ? { rating } : {}),
+          ...(displayDate !== undefined ? { displayDate } : {})
+        },
+        {
+          new: true,
+          runValidators: true
+        }
+      );
+
+      console.log("Review Updated Successfully");
+      return res.status(200).json(updatedReview);
+    }
+
+    return res.status(403).json({
+      message: "Not Authorized - User Cannot Update Other Users' Reviews"
+    });
+  } catch (error) {
+    console.error("Error in updateReview controller", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
 
-export async function deleteReview(req, res)
-{
-    
-    try {
-        const selectedReview = await review.findById(req.params.id)
+export async function deleteReview(req, res) {
+  try {
+    const selectedReview = await review.findById(req.params.id);
 
-        if(!selectedReview) //if theres no review  to delete, spit out 404 error
-            return res.status(404).json({message: "Review Not Found"})
-
-        if(req.user.role == "admin" || selectedReview.customerId.toString() == req.user.id){
-            await selectedReview.deleteOne()
-            res.status(200).json({message: "Review Deleted Successfully"})
-        }
-        else{
-            return res.status(403).json({message: "Not Authorized - User Cannot Delete Other's Reviews"})
-        }
-
-        
-    } catch (error) {
-        console.error("Error in deleteReview controller", error)
-        res.status(500).json({message:"Internal Server Error"})
+    if (!selectedReview) {
+      return res.status(404).json({ message: "Review Not Found" });
     }
-    
-    
-    //res.status(200).json({message: "Review  deleted successfully!"})
+
+    if (
+      req.user.role === "admin" ||
+      selectedReview.customerId?.toString() === req.user.id
+    ) {
+      await selectedReview.deleteOne();
+      return res.status(200).json({ message: "Review Deleted Successfully" });
+    }
+
+    return res.status(403).json({
+      message: "Not Authorized - User Cannot Delete Other Users' Reviews"
+    });
+  } catch (error) {
+    console.error("Error in deleteReview controller", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
