@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
 import announcementRoutes from "./routes/announcementRoutes.js";
 import imageRoutes from "./routes/imageRoutes.js";
+import scheduleRoutes from "./routes/scheduleRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 
@@ -33,6 +34,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/announcements", announcementRoutes);
 app.use("/api/images", imageRoutes);
+app.use("/api/schedule", scheduleRoutes);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
