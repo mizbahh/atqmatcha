@@ -16,13 +16,18 @@
   overflow: hidden;
   text-align: center;
 }
-.ih-bg { position: absolute; inset: 0; }
+
+.ih-bg { 
+  position: absolute; 
+  inset: 0; 
+}
 
 .ih-orb {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
 }
+
 .ih-orb1 { width: 500px; height: 500px; background: #4a8c3f; opacity: 0.2; top: -200px; right: -100px; }
 .ih-orb2 { width: 350px; height: 350px; background: #c9a84c; opacity: 0.15; bottom: -150px; left: -50px; }
 

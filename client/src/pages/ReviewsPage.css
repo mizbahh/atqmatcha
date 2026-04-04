@@ -2,20 +2,35 @@
   AI generated frontend for testing functionality. Not intended for production use.
 */
 
-.reviews-page { background: var(--cream); min-height: 100vh; }
+.reviews-page { 
+  background: var(--cream); 
+  min-height: 100vh; 
+}
 
-/* ─── Shared Page Header (reused across pages) ────────── */
+/* Shared Page Header (reused across pages) */
 .page-header {
   position: relative;
   padding: 5rem 2rem 4rem;
   overflow: hidden;
   text-align: center;
 }
+
 .green-header {
   background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 50%, #3d7a35 100%);
 }
-.ph-bg { position: absolute; inset: 0; }
-.ph-content { position: relative; z-index: 2; max-width: 680px; margin: 0 auto; }
+
+.ph-bg { 
+  position: absolute; 
+  inset: 0; 
+}
+
+.ph-content { 
+  position: relative; 
+  z-index: 2; 
+  max-width: 680px; 
+  margin: 0 auto; 
+}
+
 .ph-title {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 9vw, 7rem);
@@ -24,16 +39,21 @@
   line-height: 0.95;
   margin: 0.75rem 0 1rem;
 }
-.ph-sub { font-size: 0.95rem; color: rgba(249,245,238,0.7); line-height: 1.7; }
 
-/* ─── Reviews Body ────────────────────────────────────── */
+.ph-sub { 
+  font-size: 0.95rem; 
+  color: rgba(249,245,238,0.7); 
+  line-height: 1.7; 
+}
+
+/* Reviews Body */
 .reviews-body {
   max-width: 1100px;
   margin: 0 auto;
   padding: 3rem 2rem 5rem;
 }
 
-/* ─── Summary ─────────────────────────────────────────── */
+/* Summary */
 .reviews-top {
   display: flex;
   align-items: center;
@@ -51,12 +71,14 @@
   gap: 3rem;
   flex-wrap: wrap;
 }
+
 .rs-big {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
 }
+
 .rs-number {
   font-family: var(--font-display);
   font-size: 4rem;
@@ -64,11 +86,32 @@
   color: var(--green-deep);
   line-height: 1;
 }
-.rs-total { font-size: 0.75rem; color: var(--text-light); letter-spacing: 0.06em; }
 
-.rs-bars { display: flex; flex-direction: column; gap: 0.4rem; }
-.rs-bar-row { display: flex; align-items: center; gap: 0.6rem; }
-.rs-bar-label { font-size: 0.72rem; color: var(--text-light); width: 18px; text-align: right; }
+.rs-total { 
+  font-size: 0.75rem; 
+  color: var(--text-light); 
+  letter-spacing: 0.06em; 
+}
+
+.rs-bars { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.4rem; 
+}
+
+.rs-bar-row { 
+  display: flex; 
+  align-items: center; 
+  gap: 0.6rem; 
+}
+
+.rs-bar-label { 
+  font-size: 0.72rem; 
+  color: var(--text-light); 
+  width: 18px; 
+  text-align: right; 
+}
+
 .rs-bar-track {
   width: 140px;
   height: 6px;
@@ -76,20 +119,36 @@
   border-radius: 3px;
   overflow: hidden;
 }
+
 .rs-bar-fill {
   height: 100%;
   background: var(--gold);
   border-radius: 3px;
   transition: width 0.6s cubic-bezier(0.22,1,0.36,1);
 }
-.rs-bar-count { font-size: 0.7rem; color: var(--text-light); }
 
-/* ─── Stars ───────────────────────────────────────────── */
-.stars { display: flex; gap: 2px; }
-.star { font-size: 1.1rem; color: var(--sand); transition: color 0.15s; }
-.star.filled { color: var(--gold); }
+.rs-bar-count { 
+  font-size: 0.7rem; 
+  color: var(--text-light); 
+}
 
-/* ─── Leave a Review Form ─────────────────────────────── */
+/* Stars */
+.stars { 
+  display: flex; 
+  gap: 2px; 
+}
+
+.star { 
+  font-size: 1.1rem; 
+  color: var(--sand); 
+  transition: color 0.15s; 
+}
+
+.star.filled { 
+  color: var(--gold); 
+}
+
+/* Leave a Review Form */
 .review-form {
   background: #fff;
   border: 1px solid rgba(26,46,26,0.08);
@@ -98,10 +157,12 @@
   margin-bottom: 2.5rem;
   animation: slideDown 0.3s cubic-bezier(0.22,1,0.36,1);
 }
+
 @keyframes slideDown {
   from { opacity: 0; transform: translateY(-12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
 .review-form h3 {
   font-family: var(--font-display);
   font-size: 1.6rem;
@@ -109,10 +170,26 @@
   color: var(--green-deep);
   margin-bottom: 1.5rem;
 }
-.rf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-@media (max-width: 600px) { .rf-row { grid-template-columns: 1fr; } }
 
-.rf-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+.rf-row { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem; 
+}
+
+@media (max-width: 600px) { 
+  .rf-row { 
+    grid-template-columns: 1fr; 
+  } 
+}
+
+.rf-field { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.4rem; 
+  margin-bottom: 1rem; 
+}
+
 .rf-field label {
   font-size: 0.72rem;
   font-weight: 700;
@@ -120,8 +197,8 @@
   text-transform: uppercase;
   color: var(--text-light);
 }
-.rf-field input,
-.rf-field textarea {
+
+.rf-field input, .rf-field textarea {
   font-family: var(--font-body);
   font-size: 0.9rem;
   color: var(--text-dark);
@@ -133,9 +210,15 @@
   transition: border-color var(--transition);
   outline: none;
 }
-.rf-field input:focus,
-.rf-field textarea:focus { border-color: var(--green-bright); }
-.rf-field .stars .star { font-size: 1.6rem; }
+
+.rf-field input:focus, .rf-field textarea:focus { 
+  border-color: var(--green-bright); 
+}
+
+.rf-field .stars .star { 
+  font-size: 1.6rem; 
+}
+
 .rf-error {
   color: #c0392b;
   font-size: 0.82rem;
@@ -144,6 +227,7 @@
   background: #fdecea;
   border-radius: 6px;
 }
+
 .form-success {
   color: var(--green-mid);
   font-size: 1rem;
@@ -153,7 +237,7 @@
   font-size: 1.2rem;
 }
 
-/* ─── Review Cards Grid ───────────────────────────────── */
+/* Review Cards Grid */
 .reviews-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -168,10 +252,12 @@
   transition: transform var(--transition), box-shadow var(--transition);
   animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
 }
+
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
 .review-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 30px rgba(26,46,26,0.09);
@@ -183,20 +269,39 @@
   gap: 0.75rem;
   margin-bottom: 0.85rem;
 }
+
 .rc-avatar {
-  width: 40px; height: 40px;
+  width: 40px; 
+  height: 40px;
   border-radius: 50%;
   background: var(--green-deep);
   color: var(--cream);
-  display: flex; align-items: center; justify-content: center;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
   font-family: var(--font-display);
   font-size: 1.1rem;
   flex-shrink: 0;
 }
-.rc-name { font-size: 0.88rem; font-weight: 700; color: var(--green-deep); }
-.rc-date { font-size: 0.72rem; color: var(--text-light); }
-.rc-top .stars { margin-left: auto; }
-.rc-top .star { font-size: 0.9rem; }
+
+.rc-name { 
+  font-size: 0.88rem; 
+  font-weight: 700; 
+  color: var(--green-deep); 
+}
+
+.rc-date { 
+  font-size: 0.72rem; 
+  color: var(--text-light); 
+}
+
+.rc-top .stars { 
+  margin-left: auto; 
+}
+
+.rc-top .star { 
+  font-size: 0.9rem; 
+}
 
 .rc-tag {
   display: inline-block;
@@ -210,6 +315,7 @@
   border-radius: 50px;
   margin-bottom: 0.75rem;
 }
+
 .rc-text {
   font-family: var(--font-display);
   font-size: 1rem;

@@ -8,7 +8,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap');
 
-/* ─── Tokens ─────────────────────────────────────────── */
+/* Tokens */
 :root {
   --logo-green: #97c79d;
   --logo-purple: #dee9f4;
@@ -27,11 +27,9 @@
 
 html { scroll-behavior: smooth; }
 
-/* ─── Main Content ────────────────────────────────────── */
+/* Main Content */
 .main-content { 
-  padding-top: var(--nav-h); 
-
-   
+  padding-top: var(--nav-h);  
   opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
@@ -48,8 +46,7 @@ html { scroll-behavior: smooth; }
 	}
 }
 
-
-/* ─── Buttons ─────────────────────────────────────────── */
+/* Buttons */
 .btn-primary {
   background: var(--gold);
   color: var(--green-deep);
@@ -65,6 +62,7 @@ html { scroll-behavior: smooth; }
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   box-shadow: 0 4px 20px rgba(201,168,76,0.35);
 }
+
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(201,168,76,0.5);
@@ -85,15 +83,18 @@ html { scroll-behavior: smooth; }
   cursor: pointer;
   transition: background var(--transition), border-color var(--transition), transform var(--transition);
 }
+
 .btn-ghost:hover {
   background: rgba(249,245,238,0.1);
   border-color: rgba(249,245,238,0.7);
   transform: translateY(-2px);
 }
+
 .btn-ghost.light {
   color: var(--green-deep);
   border-color: rgba(26,46,26,0.3);
 }
+
 .btn-ghost.light:hover {
   background: rgba(26,46,26,0.06);
   border-color: var(--green-mid);
