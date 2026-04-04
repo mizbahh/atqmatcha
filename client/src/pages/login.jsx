@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import './login.css';
-import App from '../App';
-import CreateUserPage from './CreateUserPage';
+import React, { useState } from "react";
+import "./login.css";
+import App from "../App";
+import CreateUserPage from "./CreateUserPage";
+import { LOGO_BANNER_SRC } from "../brand.js";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -23,40 +24,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="loginContainer">
-      <h1 className="welcome">Welcome to ATQ Matcha</h1>
+    <div className="login-page">
+      <div className="login-topbar">
+        <img src={LOGO_BANNER_SRC} alt="atq matcha" className="login-topbar__img" />
+      </div>
 
-      <form className="loginField">
-        <div>
-          <label className="username">Username:</label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="loginInput"
-          />
-        </div>
+      <div className="loginContainer">
+        <h1 className="welcome">Welcome</h1>
+        <p className="login-sub">Atq Matcha</p>
 
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="loginInput"
-          />
-        </div>
+        <form className="loginField">
+          <div>
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="loginInput"
+            />
+          </div>
 
-        <button type="button" className="loginButton" onClick={handleLogin}>
-          Login
+          <div>
+            <label htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="loginInput"
+            />
+          </div>
+
+          <button type="button" className="loginButton" onClick={handleLogin}>
+            Login
+          </button>
+        </form>
+
+        <button type="button" className="createUserButton" onClick={handleCreateUser}>
+          Create User
         </button>
-      </form>
-
-      <button type="button" className="createUserButton" onClick={handleCreateUser}>
-        Create User
-      </button>
+      </div>
     </div>
   );
 }

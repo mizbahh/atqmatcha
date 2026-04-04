@@ -9,14 +9,14 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-inner">
         <div className="footer-brand">
-          <p>ATQ Matcha</p>
+          <p>Atq Matcha</p>
         </div>
         <div className="footer-links">
           <a href="https://www.instagram.com/atqmatcha/">Instagram</a>
           <a href="https://www.tiktok.com/@atqmatcha.orl">TikTok</a>
           {/*<a href="#">Contact</a>*/}
         </div>
-        {/*<p className="footer-copy">© 2026 ATQ Matcha. All rights reserved.</p>*/}
+        {/*<p className="footer-copy">© 2026 Atq Matcha. All rights reserved.</p>*/}
       </div>
     </footer>
   );

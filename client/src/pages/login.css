@@ -1,65 +1,150 @@
-
-body{
-    line-height: 1.2;
+.login-page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--white);
 }
 
-h1{
-    color: #545454;
-    font-family: cursive;
-    font-size: 105px;
-    margin: 32px;
-    letter-spacing: -1.68px;
-    line-height: 1.1;
-    text-shadow: 2px 2px 3px grey;
+.login-topbar {
+  flex-shrink: 0;
+  padding: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--white);
+}
+
+.login-topbar__img {
+  display: block;
+  height: clamp(2.65rem, 8.5vw, 4.15rem);
+  width: auto;
+  max-width: min(78vw, 22rem);
+  object-fit: contain;
+  object-position: left center;
 }
 
 .loginContainer {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #97c79d;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    border-style: solid;
-    border-width: 2px;
-    border-color: #545454;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 22rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+  box-sizing: border-box;
+}
+
+.welcome {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--dark-grey);
+  margin: 0 0 0.35rem;
+  line-height: 1.15;
+}
+
+.login-sub {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 1.75rem;
+}
+
+.loginField {
+  text-align: left;
 }
 
 .loginField div {
-    margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
-.loginInput {   
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    color:black;
-    text-align: center;
-    background-color: #dfe9f3;
+.loginField label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--dark-grey);
+  margin-bottom: 0.35rem;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 0.55rem 0.65rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--dark-grey);
+  background: var(--logo-purple);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.loginInput:focus {
+  outline: none;
+  border-color: var(--logo-green);
 }
 
 .loginButton {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  background: var(--dark-grey);
+  border: 1px solid var(--dark-grey);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.loginButton:hover {
+  background: var(--logo-green);
+  border-color: var(--logo-green);
+  color: var(--dark-grey);
 }
 
 .createUserButton {
-    width: 100%;
-    padding: 10px;
-    background-color: #545454;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  width: 100%;
+  margin-top: 0.65rem;
+  padding: 0.6rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--dark-grey);
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.createUserButton:hover {
+  background: var(--logo-purple);
+  border-color: rgba(84, 84, 84, 0.22);
+}
+
+.successMessage {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+  margin: 0 0 1.25rem;
+  text-align: left;
+}
+
+.errorMessage {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--dark-grey);
+  margin: 0 0 0.75rem;
+  padding: 0.5rem 0.65rem;
+  background: rgba(151, 199, 157, 0.35);
+  border-radius: var(--radius);
+  text-align: left;
 }

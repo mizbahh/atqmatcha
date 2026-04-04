@@ -1,21 +1,10 @@
-/*
-  AI generated frontend for testing functionality. Not intended for production use.
-*/
-
-/*
-  TODO: REMOVE MANY FEATURES, PROPERLY IMPLEMENT BACKEND FOR LOADING ITEMS, IMPLEMENT CART FUNCTIONALITY
-*/
-
 import { useState } from "react";
 import Footer from "../components/Footer";
+import PageHero from "../components/PageHero.jsx";
 import menuData from "../data/menuData";
 import "./MenuPage.css";
 
-const categories = [
-  { id: "hot",  label: "☕ Hot Drinks" },
-  { id: "iced", label: "🧊 Iced Drinks" },
-  { id: "food", label: "🍡 Food & Snacks" },
-];
+const categories = [{ id: "hot", label: "Matcha lattes" }];
 
 export default function MenuPage({ onTabChange }) {
   const [category, setCategory] = useState("hot");
@@ -34,7 +23,9 @@ export default function MenuPage({ onTabChange }) {
     setCart((prev) => {
       const key = `${item.name}__${option}`;
       const existing = prev.find((c) => c.key === key);
-      if (existing) return prev.map((c) => c.key === key ? { ...c, qty: c.qty + 1 } : c);
+      if (existing) {
+        return prev.map((c) => (c.key === key ? { ...c, qty: c.qty + 1 } : c));
+      }
       return [...prev, { key, name: item.name, option, price: item.price, qty: 1 }];
     });
     setAdded(item.name);
@@ -49,109 +40,116 @@ export default function MenuPage({ onTabChange }) {
   const totalPrice = cart.reduce((s, c) => s + c.qty * parseFloat(c.price.replace("$", "")), 0);
 
   return (
-    <div className="menu-page">
-      {/* Page Header */}
-      <div className="menu-header">
-        <div className="menu-header-bg">
-          <div className="orb orb1" style={{ opacity: 0.2 }} />
-          <div className="orb orb2" style={{ opacity: 0.15 }} />
-          <div className="grain" />
-        </div>
-        <div className="menu-header-content">
-          <p className="hero-eyebrow">✦ Seasonal Menu ✦ Made to Order</p>
-          <h1 className="menu-page-title">
-            Menu &<br /><span className="accent">Preorder</span>
-          </h1>
-          <p className="menu-page-sub">
-            Order ahead for pickup at our next pop-up — skip the line, sip faster.
+    <div className="page menu-page">
+      <PageHero
+        tone="purple"
+        label="Order ahead"
+        title="Menu"
+        lede="All drinks freshly hand-whisked to order. Preorder for pickup at our next pop-up."
+      />
+
+      <div className="page-panel page-panel--dark">
+        <div className="page-wide strip-bar">
+          <p className="strip-bar__text">
+            Next pickup · Oviedo Farmers Market · Sat, April 5 · 8am–1pm
           </p>
+          <div className="strip-bar__actions">
+            <button type="button" className="strip-bar__btn" onClick={() => onTabChange("schedule")}>
+              Full schedule
+            </button>
+          </div>
         </div>
       </div>
 
-      <div className="menu-body">
-        {/* Category Switcher */}
-        <div className="category-tabs">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              className={`cat-tab ${category === c.id ? "active" : ""}`}
-              onClick={() => setCategory(c.id)}
-            >
-              {c.label}
-            </button>
-          ))}
-        </div>
-
-        <div className="menu-layout">
-          {/* Items Grid */}
-          <div className="menu-items">
-            {currentItems.map((item) => (
-              <div className="menu-item-card" key={item.name}>
-                <div className="mic-swatch" style={{ background: item.color }} />
-                <div className="mic-body">
-                  <div className="mic-top">
-                    <div>
-                      <span className="drink-tag">{item.tag}</span>
-                      <h3 className="mic-name">{item.name}</h3>
-                      <p className="mic-desc">{item.desc}</p>
-                    </div>
-                    <span className="mic-price">{item.price}</span>
-                  </div>
-
-                  {item.options.length > 1 && (
-                    <div className="mic-options">
-                      <label className="opt-label">Option:</label>
-                      <div className="opt-pills">
-                        {item.options.map((o) => (
-                          <button
-                            key={o}
-                            className={`opt-pill ${(selectedOptions[item.name] || item.options[0]) === o ? "selected" : ""}`}
-                            onClick={() => handleOptionChange(item.name, o)}
-                          >
-                            {o}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
+      <div className="page-panel page-panel--white menu-body">
+        <div className="page-wide menu-layout">
+          <div className="menu-main">
+            {categories.length > 1 ? (
+              <div className="category-tabs">
+                {categories.map((c) => (
                   <button
-                    className={`mic-add ${added === item.name ? "added" : ""}`}
-                    onClick={() => addToCart(item)}
+                    key={c.id}
+                    type="button"
+                    className={`cat-tab ${category === c.id ? "active" : ""}`}
+                    onClick={() => setCategory(c.id)}
                   >
-                    {added === item.name ? "✓ Added!" : "+ Add to Order"}
+                    {c.label}
                   </button>
-                </div>
+                ))}
               </div>
-            ))}
+            ) : null}
+
+            <ul className="menu-items">
+              {currentItems.map((item) => (
+                <li className="menu-item-card" key={item.name}>
+                  <div className="menu-item-card__accent" style={{ background: item.color }} aria-hidden />
+                  <div className="menu-item-card__body">
+                    <div className="menu-item-card__top">
+                      <div>
+                        {item.tag ? <span className="menu-item-card__tag">{item.tag}</span> : null}
+                        <h3 className="menu-item-card__name">{item.name}</h3>
+                        <p className="menu-item-card__desc">{item.desc}</p>
+                      </div>
+                      <span className="menu-item-card__price">{item.price}</span>
+                    </div>
+
+                    {item.options.length > 1 ? (
+                      <div className="menu-item-card__options">
+                        <span className="menu-item-card__opt-label">Option</span>
+                        <div className="opt-row">
+                          {item.options.map((o) => (
+                            <button
+                              key={o}
+                              type="button"
+                              className={`opt-chip ${
+                                (selectedOptions[item.name] || item.options[0]) === o ? "selected" : ""
+                              }`}
+                              onClick={() => handleOptionChange(item.name, o)}
+                            >
+                              {o}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    <button
+                      type="button"
+                      className={`btn-primary menu-add ${added === item.name ? "is-added" : ""}`}
+                      onClick={() => addToCart(item)}
+                    >
+                      {added === item.name ? "Added" : "Add"}
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Cart Sidebar */}
           <aside className="cart-sidebar">
-            <div className="cart-sticky">
-              <div className="cart-header">
-                <h3>Your Order</h3>
-                {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+            <div className="cart-box">
+              <div className="cart-box__head">
+                <h2 className="section-heading cart-box__title">Order</h2>
+                {totalItems > 0 ? <span className="cart-box__count">{totalItems}</span> : null}
               </div>
 
               {cart.length === 0 ? (
-                <div className="cart-empty">
-                  <span>🍵</span>
-                  <p>Your order is empty.<br />Add items from the menu!</p>
-                </div>
+                <p className="cart-box__empty muted">Nothing added yet.</p>
               ) : (
                 <>
-                  <ul className="cart-items">
+                  <ul className="cart-list">
                     {cart.map((c) => (
-                      <li key={c.key} className="cart-item">
-                        <div className="ci-info">
-                          <span className="ci-name">{c.name}</span>
-                          <span className="ci-opt">{c.option}</span>
+                      <li className="cart-line" key={c.key}>
+                        <div>
+                          <span className="cart-line__name">{c.name}</span>
+                          <span className="cart-line__opt">{c.option}</span>
                         </div>
-                        <div className="ci-right">
-                          <span className="ci-qty">×{c.qty}</span>
-                          <span className="ci-price">{c.price}</span>
-                          <button className="ci-remove" onClick={() => removeFromCart(c.key)}>✕</button>
+                        <div className="cart-line__right">
+                          <span>×{c.qty}</span>
+                          <span>{c.price}</span>
+                          <button type="button" className="cart-line__remove" onClick={() => removeFromCart(c.key)}>
+                            Remove
+                          </button>
                         </div>
                       </li>
                     ))}
@@ -160,22 +158,14 @@ export default function MenuPage({ onTabChange }) {
                     <span>Total</span>
                     <span>${totalPrice.toFixed(2)}</span>
                   </div>
-                  <button className="btn-primary cart-submit">Place Preorder</button>
-                  <p className="cart-note">Pickup at next pop-up · Payment at pickup</p>
+                  <button type="button" className="btn-primary cart-submit">
+                    Place preorder
+                  </button>
+                  <p className="cart-note muted">
+                    All drinks freshly hand-whisked to order. Pickup at next pop-up · Pay on pickup
+                  </p>
                 </>
               )}
-
-              <div className="cart-next-popup">
-                <p className="cnp-label">📍 Next Pickup</p>
-                <p className="cnp-event">Oviedo Farmers Market</p>
-                <p className="cnp-date">Sat, April 5 · 8am–1pm</p>
-                <button
-                  className="btn-ghost light cnp-btn"
-                  onClick={() => onTabChange("schedule")}
-                >
-                  See Full Schedule →
-                </button>
-              </div>
             </div>
           </aside>
         </div>

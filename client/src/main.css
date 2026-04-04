@@ -2,49 +2,43 @@
   Defines many of the defaults that will be used across various pages.
 */
 
-body {
-  background-color: #dee9f4;
-  background-size: cover;
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Zen+Kaku+Gothic+New:wght@300;400;700&display=swap");
 
 :root {
-  --text: #000000;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --logo-green: #97c79d;
+  --logo-purple: #dee9f4;
+  --dark-grey: #545454;
+  --white: #ffffff;
+  --green-muted: #7aab82;
+  --surface-mist: #eef4f0;
 
-  --green-deep:   #1a2e1a;
-  --green-mid:    #2d5a27;
-  --green-bright: #4a8c3f;
-  --green-pale:   #c8e6c2;
-  --green-mist:   #eef6ec;
-  --cream:        #f9f5ee;
-  --sand:         #e8dcc8;
-  --gold:         #c9a84c;
-  --text-dark:    #1a2010;
-  --text-mid:     #3d4a38;
-  --text-light:   #6b7a64;
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Zen Kaku Gothic New", sans-serif;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --text: var(--dark-grey);
+  --text-muted: rgba(84, 84, 84, 0.72);
+  --border-subtle: rgba(84, 84, 84, 0.14);
 
-  --font-body:    'Zen Kaku Gothic New', sans-serif;
+  /* Legacy names used across page CSS — mapped to the four-color palette */
+  --cream: var(--white);
+  --green-deep: var(--dark-grey);
+  --green-mid: var(--dark-grey);
+  --green-bright: var(--logo-green);
+  --green-pale: var(--logo-purple);
+  --green-mist: var(--logo-purple);
+  --sand: var(--logo-purple);
+  --gold: var(--logo-green);
+  --text-dark: var(--dark-grey);
+  --text-mid: var(--dark-grey);
+  --text-light: rgba(84, 84, 84, 0.62);
 
-  --nav-h: 68px;
-  --radius: 16px;
-  --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-h: 88px;
+  --radius: 12px;
+  --transition: 0.25s ease;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font: 17px/1.5 var(--font-body);
+  font-weight: 400;
+  color: var(--text);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -55,12 +49,17 @@ body {
   }
 }
 
+body {
+  margin: 0;
+  background-color: var(--white);
+  color: var(--text);
+}
+
 /* Global root definitions */
 #root {
-  width: 1400px;
-  max-width: 95%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
   min-height: 100svh;
   display: flex;
   flex-direction: column;

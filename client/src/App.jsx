@@ -1,10 +1,3 @@
-/*
-  Main component that manages the active tabs of the app, rendering the appropriate tab.
-*/
-
-/*
-  AI template generated -- modified from there
-*/
 
 import { useState, useEffect } from "react";
 import "./App.css";
@@ -17,7 +10,6 @@ import SchedulePage from "./pages/SchedulePage.jsx";
 import EventInquiryPage from "./pages/EventInquiryPage.jsx";
 import MenuPage    from "./pages/MenuPage.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
-import tabs        from "./data/tabs.js";
 
 export default function App() {
   // Sets the active tab to home by default, and tracks scroll and menu state for the navbar
@@ -49,13 +41,12 @@ export default function App() {
       case "home":     return <HomePage    onTabChange={handleTabChange} />;
       case "menu":     return <MenuPage     onTabChange={handleTabChange} />;
       case "images":   return <ImagesPage />;
-      case "reviews":  return <ReviewsPage onTabChange={handleTabChange}/>;
+      case "reviews":  return <ReviewsPage />;
       case "schedule": return <SchedulePage  onTabChange={handleTabChange} />;
       case "inquiry":  return <EventInquiryPage />;
       case "blog":     return <BlogPage />;
-      default: {
-        const t = tabs.find((t) => t.id === activeTab);
-      }
+      default:
+        return <HomePage onTabChange={handleTabChange} />;
     }
   };
 
@@ -70,7 +61,6 @@ export default function App() {
         setMenuOpen={setMenuOpen}
       />
 
-      {/* Renders the content of the active tab within the main content area */}
       <main className="main-content">
         {renderContent()}
       </main>

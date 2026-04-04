@@ -3,8 +3,9 @@
 */
 
 .footer {
-  background: var(--green-deep);
-  padding: 3rem 2rem;
+  background: var(--dark-grey);
+  padding: 2.25rem 1.5rem;
+  margin-top: auto;
 }
 
 .footer-inner {
@@ -26,14 +27,14 @@
 .footer-logo {
   font-family: var(--font-display);
   font-size: 2rem;
-  color: var(--green-pale);
+  color: var(--logo-purple);
 }
 
 .footer-brand p {
   font-size: 0.78rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(249, 245, 238, 0.6);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .footer-links {
@@ -43,22 +44,22 @@
 
 .footer-links a {
   font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(249, 245, 238, 0.6);
+  color: rgba(255, 255, 255, 0.72);
   text-decoration: none;
   transition: color var(--transition);
 }
 
-.footer-links a:hover { 
-  color: var(--green-pale); 
+.footer-links a:hover {
+  color: var(--logo-green);
 }
 
 .footer-copy {
   font-size: 0.72rem;
-  color: rgba(249, 245, 238, 0.35);
+  color: rgba(255, 255, 255, 0.4);
   width: 100%;
   text-align: center;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
