@@ -49,15 +49,51 @@ export default function EventInquiryPage() {
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
-  const handleSubmit = () => {
-    if (!form.name || !form.email || !form.eventType || !form.date) {
-      setError("Name, email, event type, and date are required.");
+  const handleSubmit = async () => {
+    if(!form.name || !form.email || !form.eventType || !form.date){
+      setError("Please fill out all required fields");
       return;
     }
-    console.log("Event inquiry submitted:", form);
-    setSubmitted(true);
-    setError("");
-  };
+    
+    try{
+      const token = localStorage.getItem("token"); //gets JWT of user who logged in
+
+      const res = await fetch("http://localhost:5001/api/events", {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-auth-token": token
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phoneNum: form.phone,
+          eventType: form.eventType,
+          expectedGuests: form.guestCount,
+          preferredDate: form.date,
+          eventLocation: form.location,
+          additionalNotes: form.notes,
+          howHeardAbout: form.howHeard,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.msg || "Error submitting inquiry");
+        return;
+      }
+
+      setSubmitted(true);
+      setError("");
+
+
+    }catch(err){
+      console.log("Error in Submitting Event Inquiry:", err);
+      setError("Something went wrong. Please try again later");
+    }
+  }
+
 
   if (submitted) {
     return (
