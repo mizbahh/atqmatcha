@@ -2,19 +2,55 @@ import React, { useState } from 'react';
 import './login.css';
 import App from '../App';
 import CreateUserPage from './CreateUserPage';
+import { LOGO_BANNER_SRC } from "../brand.js";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [view, setView] = useState('login'); // 'login' | 'createUser' | 'app'
 
   if (view === 'app') return <App />;
   if (view === 'createUser') return <CreateUserPage onBack={() => setView('login')} />;
 
-  const handleLogin = () => {
-    console.log('handleLogin called');
-    console.log(`Logging in with username: ${username} and password: ${password}`);
-    setView('app');
+  
+  const handleLogin = async () => {
+    
+    if(!username || !password){
+      console.log("Missing Username / Password Field");
+      return;
+    }
+
+    try{
+
+
+      const res = await fetch("http://localhost:5001/api/auth/login", {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json",
+        },
+        body: JSON.stringify({username, password}),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.msg || "Invalid credentials");
+        return;
+      }
+
+       
+      //Stores token in local storage - page holds token for user info
+      localStorage.setItem("token", data.token);
+      
+
+      //Goes to the home screen after successful login
+      setError("");
+      setView('app');
+    } catch(err){
+      console.log("Login Error:", err);
+    }
+
   };
 
   const handleCreateUser = () => {
@@ -24,8 +60,8 @@ export default function LoginPage() {
 
   return (
     <div className="loginContainer">
-      <h1 className="welcome">Welcome to ATQ Matcha</h1>
-
+      <h1 className="welcome">Welcome</h1>
+        <p className="login-sub">Atq Matcha</p>
       <form className="loginField">
         <div>
           <label className="username">Username:</label>
@@ -48,6 +84,8 @@ export default function LoginPage() {
             className="loginInput"
           />
         </div>
+        
+        {error && <p className="errorMessage">{error}</p>}
 
         <button type="button" className="loginButton" onClick={handleLogin}>
           Login

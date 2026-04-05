@@ -1,117 +1,56 @@
-/*
-  AI generated frontend for testing functionality. Not intended for production use.
-*/
-
-/* Page not including header and footer */
-.images-page {
-  background: var(--cream);
-  min-height: 100vh;
+.images-body {
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
 }
 
-/* Header */
-.images-header {
-  position: relative;
-  background: linear-gradient(135deg, #1a2e1a 0%, #2d5a27 50%, #3d7a35 100%);
-  padding: 5rem 2rem 4rem;
-  overflow: hidden;
+.images-status {
+  margin: 0;
   text-align: center;
-}
-
-.ih-bg { 
-  position: absolute; 
-  inset: 0; 
-}
-
-.ih-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-}
-
-.ih-orb1 { width: 500px; height: 500px; background: #4a8c3f; opacity: 0.2; top: -200px; right: -100px; }
-.ih-orb2 { width: 350px; height: 350px; background: #c9a84c; opacity: 0.15; bottom: -150px; left: -50px; }
-
-.ih-content {
-  position: relative;
-  z-index: 2;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.images-title {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 7rem);
-  font-weight: 300;
-  color: var(--cream);
-  line-height: 0.95;
-  margin: 0.75rem 0 1rem;
-  letter-spacing: -0.01em;
-}
-
-.images-subtitle {
+  padding: 2rem 1rem;
   font-size: 0.95rem;
-  color: rgba(249, 245, 238, 0.7);
-  line-height: 1.7;
-}
-
-/* Masonry Grid (Pinterest-like layout) */
-.masonry-wrap {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1.5rem 4rem;
 }
 
 .masonry-grid {
   display: grid;
-  grid-template-columns: repeat(var(--cols), 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(var(--cols, 3), 1fr);
+  gap: 0.75rem;
   align-items: start;
 }
 
 .masonry-col {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
-/* Individual Items */
 .masonry-item {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
   opacity: 0;
-  transform: translateY(16px);
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s ease,
-    opacity 0.4s ease;
-  box-shadow: 0 2px 12px rgba(26, 46, 26, 0.08);
-  background: var(--green-mist);
+  transform: translateY(6px);
+  animation: image-in 0.45s ease forwards;
 }
 
 .masonry-item.loaded {
   opacity: 1;
-  transform: translateY(0);
-  animation: itemReveal 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform: none;
 }
 
-/* Animation related to the initial loading */
-@keyframes itemReveal {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)    scale(1); }
+@keyframes image-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
-.mi-img-wrap {
-  position: relative;
-  width: 100%;
+.masonry-item__frame {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background: var(--logo-purple);
+}
+
+.masonry-item__frame img {
   display: block;
-}
-
-.mi-img-wrap img {
   width: 100%;
   height: auto;
-  display: block;
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  vertical-align: middle;
 }
-

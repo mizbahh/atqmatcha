@@ -8,6 +8,7 @@
 
 import React, { useState } from 'react';
 import './login.css';
+import { LOGO_BANNER_SRC } from "../brand.js";
 
 export default function CreateUserPage({ onBack }) {
   const [username, setUsername]         = useState('');
@@ -18,7 +19,7 @@ export default function CreateUserPage({ onBack }) {
   const [success, setSuccess]           = useState(false);
 
   // Handles the submit process ***NEEDS BACKEND IMPLEMENTATION*** CURRENTLY JUST LOGS TO CONSOLE AND SHOWS SUCCESS MESSAGE
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Basic validation to make sure all fields are filled
     if (!username || !email || !password || !confirmPassword) {
       setError('Please fill in all fields.');
@@ -31,15 +32,38 @@ export default function CreateUserPage({ onBack }) {
       return;
     }
 
-    // PASSES USER THROUGH WITH NO VALIDATION OR BACKEND CALLS -- ***NEEDS BACKEND IMPLEMENTATION***
-    console.log('Creating user:', { username, email, password });
-    setError('');
-    setSuccess(true);
-  };
+   //Tries to create a new user, and stores a token of login
+    try{
+      //Makes POST request to create the user and add them to the database
+      const res = await fetch("http://localhost:5001/api/auth/register",{
+        method: "POST",
+        headers:{
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({username, email, password}),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok){
+        setError(data.msg || "Error Creating Account");
+        return;
+      }
+
+      setError("");
+      setSuccess(true);
+
+    } catch(err){
+      setError("Internal Server Error. Try Again Later");
+    }
+  }
+
+
 
   // Renders success message if account creation is successful, otherwise renders the create user form.
   if (success) {
     return (
+      
       <div className="loginContainer">
         <h1 className="welcome">Account Created!</h1>
         <p className="successMessage">
@@ -110,3 +134,4 @@ export default function CreateUserPage({ onBack }) {
     </div>
   );
 }
+

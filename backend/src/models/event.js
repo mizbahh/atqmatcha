@@ -39,6 +39,10 @@ const eventSchema = new mongoose.Schema(
     },
     howHeardAbout:{ //How Did You Hear About Us?
         type:String
+    },
+    customerID:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "user"
     }
 },
 );

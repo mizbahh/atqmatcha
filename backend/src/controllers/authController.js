@@ -7,7 +7,7 @@ import user from "../models/user.js";
 export async function registerUser(req, res){
 
     //gets user input from the frontend form
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     try {
 
@@ -19,7 +19,7 @@ export async function registerUser(req, res){
         }
 
         //creates new user
-        newUser = new user({ username, password });
+        newUser = new user({ username, password, email});
 
         //uses salt to make password hash stronger & secure
         const salt = await bcrypt.genSalt();//generates a salt to hash the password with
@@ -78,7 +78,7 @@ export async function loginUser(req, res){
         const payload = {
             user: 
             {
-                id: String(selectedUser.id),
+                id: String(selectedUser._id),
                 role: String(selectedUser.role)
             }
         };

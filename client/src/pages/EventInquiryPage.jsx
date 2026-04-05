@@ -1,30 +1,47 @@
-/*
-  AI generated frontend for testing functionality. Not intended for production use.
-*/
-
-/*
-  TODO: LIKELY NUKE PAGE; IF NOT IMPLEMENT BACKEND AND EDIT FRONTEND
-*/
-
 import { useState } from "react";
 import Footer from "../components/Footer";
+import PageHero from "../components/PageHero.jsx";
 import "./EventInquiryPage.css";
 
-const eventTypes = ["Private Party", "Corporate Event", "Wedding", "Farmers Market", "Festival / Fair", "Pop-Up Shop", "Other"];
+const eventTypes = [
+  "Private party",
+  "Corporate event",
+  "Wedding",
+  "Farmers market",
+  "Festival / fair",
+  "Pop-up shop",
+  "Other",
+];
 const guestRanges = ["Under 25", "25 – 50", "51 – 100", "101 – 250", "250+"];
 
 const faqs = [
-  { q: "How far in advance should I book?",           a: "We recommend reaching out at least 4–6 weeks in advance for private events, and 2–3 months for large festivals or weddings. We book up quickly on weekends!" },
-  { q: "Do you require a deposit?",                   a: "Yes — a 25% deposit is required to secure your date. The remaining balance is due 48 hours before the event." },
-  { q: "What do you bring to the event?",             a: "We bring our full setup: portable brew station, all equipment, ingredients, signage, and two trained baristas. You just provide the space!" },
-  { q: "Can we customize the menu?",                  a: "Absolutely. We can create a custom menu around your theme — seasonal flavors, branded cups, custom names for drinks, and more." },
-  { q: "What's your travel radius?",                  a: "We primarily serve Central Florida (Orlando metro, Oviedo, Winter Park, Sanford, Lake Mary). Contact us for events outside this area." },
+  {
+    q: "How far in advance should I book?",
+    a: "About 4–6 weeks for private events; longer for large festivals or weddings.",
+  },
+  { q: "Do you require a deposit?", a: "Yes — 25% to hold the date; balance due 48 hours before." },
+  {
+    q: "What do you bring?",
+    a: "Portable bar setup, equipment, ingredients, and signage. You provide the space.",
+  },
+  { q: "Custom menus?", a: "Yes — we can tailor drinks to your theme or brand." },
+  {
+    q: "Where do you travel?",
+    a: "Primarily Central Florida; ask if you are farther out.",
+  },
 ];
 
 export default function EventInquiryPage() {
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", eventType: "", guestCount: "",
-    date: "", location: "", notes: "", howHeard: "",
+    name: "",
+    email: "",
+    phone: "",
+    eventType: "",
+    guestCount: "",
+    date: "",
+    location: "",
+    notes: "",
+    howHeard: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -32,30 +49,62 @@ export default function EventInquiryPage() {
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
-  const handleSubmit = () => {
-    if (!form.name || !form.email || !form.eventType || !form.date) {
-      setError("Please fill in your name, email, event type, and preferred date.");
+  const handleSubmit = async () => {
+    if(!form.name || !form.email || !form.eventType || !form.date){
+      setError("Please fill out all required fields");
       return;
     }
-    console.log("Event inquiry submitted:", form);
-    setSubmitted(true);
-    setError("");
-  };
+    
+    try{
+      const token = localStorage.getItem("token"); //gets JWT of user who logged in
+
+      const res = await fetch("http://localhost:5001/api/events", {
+        method: "POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-auth-token": token
+        },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phoneNum: form.phone,
+          eventType: form.eventType,
+          expectedGuests: form.guestCount,
+          preferredDate: form.date,
+          eventLocation: form.location,
+          additionalNotes: form.notes,
+          howHeardAbout: form.howHeard,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.msg || "Error submitting inquiry");
+        return;
+      }
+
+      setSubmitted(true);
+      setError("");
+
+
+    }catch(err){
+      console.log("Error in Submitting Event Inquiry:", err);
+      setError("Something went wrong. Please try again later");
+    }
+  }
+
 
   if (submitted) {
     return (
-      <div className="inquiry-page">
-        <div className="page-header green-header">
-          <div className="ph-bg"><div className="orb orb1"/><div className="orb orb2"/><div className="grain"/></div>
-          <div className="ph-content">
-            <h1 className="ph-title">Thank You!</h1>
-            <p className="ph-sub">We've received your inquiry and will be in touch within 1–2 business days.</p>
+      <div className="page inquiry-page">
+        <PageHero tone="green" title="Thank you" lede="We will reply within 1–2 business days." />
+        <div className="page-panel page-panel--white inquiry-success">
+          <div className="page-inner">
+            <p className="inquiry-success__text">
+              We will reach out at <strong>{form.email}</strong> about your event.
+            </p>
           </div>
-        </div>
-        <div className="submit-success">
-          <span>🍵</span>
-          <h2>Your inquiry is steeping…</h2>
-          <p>We'll reach out to <strong>{form.email}</strong> shortly to discuss your event.</p>
         </div>
         <Footer />
       </div>
@@ -63,112 +112,118 @@ export default function EventInquiryPage() {
   }
 
   return (
-    <div className="inquiry-page">
-      <div className="page-header green-header">
-        <div className="ph-bg"><div className="orb orb1"/><div className="orb orb2"/><div className="grain"/></div>
-        <div className="ph-content">
-          <p className="hero-eyebrow">✦ Bring Us To You</p>
-          <h1 className="ph-title">Event<br /><span style={{fontStyle:"italic", color:"var(--green-pale)"}}>Inquiry</span></h1>
-          <p className="ph-sub">From intimate gatherings to large festivals — let's make your event unforgettable.</p>
+    <div className="page inquiry-page">
+      <PageHero
+        tone="purple"
+        label="Events"
+        title="Inquiry"
+        lede="Private parties, markets, and festivals — tell us what you are planning."
+      />
+
+      <div className="page-panel page-panel--dark inquiry-intro">
+        <div className="page-inner">
+          <p className="inquiry-intro__text">
+            Full setup, trained baristas, and menus we can adapt to your crowd.
+          </p>
         </div>
       </div>
 
-      {/* Why book us */}
-      <div className="why-strip">
-        <div className="why-inner">
-          {[
-            { icon: "🌿", title: "Full Setup Included",    desc: "Portable brew station, equipment, signage — we handle everything." },
-            { icon: "✦",  title: "Custom Menus",           desc: "Tailored drink menus to match your event theme and brand." },
-            { icon: "👩‍🍳", title: "Trained Baristas",      desc: "Our team brings expertise and warmth to every event." },
-            { icon: "📍", title: "Central Florida",        desc: "Serving Orlando metro and surrounding areas. Ask about travel." },
-          ].map((w) => (
-            <div className="why-card" key={w.title}>
-              <span className="why-icon">{w.icon}</span>
-              <h4>{w.title}</h4>
-              <p>{w.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="inquiry-body">
-        <div className="inquiry-layout">
-          {/* Form */}
+      <div className="page-panel page-panel--white inquiry-body">
+        <div className="page-wide inquiry-layout">
           <div className="inquiry-form">
-            <h2>Tell Us About Your Event</h2>
-            <p className="form-intro">Fill out the form below and we'll get back to you within 1–2 business days.</p>
+            <h2 className="section-heading">Your event</h2>
+            <p className="inquiry-form__intro muted">We usually respond within two business days.</p>
 
-            <div className="if-section-label">Contact Info</div>
+            <p className="if-section">Contact</p>
             <div className="if-row">
               <div className="if-field">
-                <label>Full Name *</label>
-                <input type="text" placeholder="Your name" value={form.name} onChange={set("name")} />
+                <label htmlFor="inq-name">Name</label>
+                <input id="inq-name" type="text" value={form.name} onChange={set("name")} autoComplete="name" />
               </div>
               <div className="if-field">
-                <label>Email *</label>
-                <input type="email" placeholder="you@example.com" value={form.email} onChange={set("email")} />
+                <label htmlFor="inq-email">Email</label>
+                <input
+                  id="inq-email"
+                  type="email"
+                  value={form.email}
+                  onChange={set("email")}
+                  autoComplete="email"
+                />
               </div>
             </div>
             <div className="if-field">
-              <label>Phone (optional)</label>
-              <input type="tel" placeholder="(555) 000-0000" value={form.phone} onChange={set("phone")} />
+              <label htmlFor="inq-phone">Phone (optional)</label>
+              <input id="inq-phone" type="tel" value={form.phone} onChange={set("phone")} />
             </div>
 
-            <div className="if-section-label">Event Details</div>
+            <p className="if-section">Details</p>
             <div className="if-row">
               <div className="if-field">
-                <label>Event Type *</label>
-                <select value={form.eventType} onChange={set("eventType")}>
-                  <option value="">Select type…</option>
-                  {eventTypes.map(t => <option key={t}>{t}</option>)}
+                <label htmlFor="inq-type">Event type</label>
+                <select id="inq-type" value={form.eventType} onChange={set("eventType")}>
+                  <option value="">Select…</option>
+                  {eventTypes.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
                 </select>
               </div>
               <div className="if-field">
-                <label>Expected Guests</label>
-                <select value={form.guestCount} onChange={set("guestCount")}>
-                  <option value="">Select range…</option>
-                  {guestRanges.map(g => <option key={g}>{g}</option>)}
+                <label htmlFor="inq-guests">Guests</label>
+                <select id="inq-guests" value={form.guestCount} onChange={set("guestCount")}>
+                  <option value="">Select…</option>
+                  {guestRanges.map((g) => (
+                    <option key={g} value={g}>
+                      {g}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
             <div className="if-row">
               <div className="if-field">
-                <label>Preferred Date *</label>
-                <input type="date" value={form.date} onChange={set("date")} />
+                <label htmlFor="inq-date">Preferred date</label>
+                <input id="inq-date" type="date" value={form.date} onChange={set("date")} />
               </div>
               <div className="if-field">
-                <label>Event Location / Venue</label>
-                <input type="text" placeholder="City, venue, or address" value={form.location} onChange={set("location")} />
+                <label htmlFor="inq-loc">Location / venue</label>
+                <input id="inq-loc" type="text" value={form.location} onChange={set("location")} />
               </div>
             </div>
             <div className="if-field">
-              <label>Additional Notes</label>
-              <textarea rows={4} placeholder="Tell us more — theme, special requests, accessibility needs…" value={form.notes} onChange={set("notes")} />
+              <label htmlFor="inq-notes">Notes</label>
+              <textarea id="inq-notes" rows={4} value={form.notes} onChange={set("notes")} />
             </div>
             <div className="if-field">
-              <label>How did you hear about us?</label>
-              <input type="text" placeholder="Instagram, friend, farmers market…" value={form.howHeard} onChange={set("howHeard")} />
+              <label htmlFor="inq-heard">How did you hear about us?</label>
+              <input id="inq-heard" type="text" value={form.howHeard} onChange={set("howHeard")} />
             </div>
 
-            {error && <p className="if-error">{error}</p>}
-            <button className="btn-primary" onClick={handleSubmit}>Send Inquiry →</button>
+            {error ? <p className="if-error">{error}</p> : null}
+            <button type="button" className="btn-primary" onClick={handleSubmit}>
+              Send inquiry
+            </button>
           </div>
 
-          {/* FAQ Sidebar */}
-          <aside className="faq-sidebar">
-            <h3>Common Questions</h3>
+          <aside className="faq-aside">
+            <h2 className="section-heading faq-aside__title">Questions</h2>
             {faqs.map((faq, i) => (
-              <div className="faq-item" key={i}>
-                <button className={`faq-q ${openFaq === i ? "open" : ""}`} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                  <span>{faq.q}</span>
-                  <span className="faq-chevron">{openFaq === i ? "−" : "+"}</span>
+              <div className="faq-item" key={faq.q}>
+                <button
+                  type="button"
+                  className={`faq-q ${openFaq === i ? "is-open" : ""}`}
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                >
+                  {faq.q}
                 </button>
-                {openFaq === i && <p className="faq-a">{faq.a}</p>}
+                {openFaq === i ? <p className="faq-a">{faq.a}</p> : null}
               </div>
             ))}
           </aside>
         </div>
       </div>
+
       <Footer />
     </div>
   );

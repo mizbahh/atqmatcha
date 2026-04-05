@@ -26,10 +26,16 @@ export async function getEventByID(req, res)
 
 
 export async function createEvent(req, res)
-{
+{  
+
+    let customerID = null;
+    if (req.user && req.user.id) {
+        customerID = req.user.id;
+    }
+
    try {
     const {name, email, phoneNum, eventType, expectedGuests, preferredDate, eventLocation, additionalNotes, howHeardAbout} = req.body
-    const newEvent = new event({name:name, email:email, phoneNum:phoneNum, eventType:eventType, expectedGuests:expectedGuests, preferredDate:preferredDate, eventLocation:eventLocation, additionalNotes:additionalNotes, howHeardAbout:howHeardAbout })
+    const newEvent = new event({name:name, email:email, phoneNum:phoneNum, eventType:eventType, expectedGuests:expectedGuests, preferredDate:preferredDate, eventLocation:eventLocation, additionalNotes:additionalNotes, howHeardAbout:howHeardAbout, customerID: customerID})
     
     const savedEvent = await newEvent.save()
 

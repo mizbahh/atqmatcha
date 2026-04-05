@@ -5,11 +5,11 @@ import { createEvent, deleteEvent, getAllEvents, getEventByID, updateEvent } fro
 
 const router = express.Router();
 
-router.get("/", getAllEvents);
+router.get("/", auth, isAdmin, getAllEvents);
 
-router.get("/:id", getEventByID);
+router.get("/:id", auth, isAdmin, getEventByID);
 
-router.post("/", auth, isAdmin, createEvent);
+router.post("/", auth, createEvent);
 
 router.put("/:id", auth, isAdmin, updateEvent);
 

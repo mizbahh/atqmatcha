@@ -1,20 +1,14 @@
-/*
-  AI generated frontend for testing functionality. Not intended for production use.
-*/
-
-/*
-  TODO: ADD BACKEND FUNCTIONALITY FOR CALENDAR EVENTS, MAYBE ADD ADMIN FUNCTIONALITY TO BE ABLE TO ADD AND DELETE EVENTS
-  ALSO PROBABLY CHECK AGAINST USER TIME/DATE AND SEE IF EVENT HAS ALREADY PASSED, AND NOT RENDER IF SO
-*/
-
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer";
+import PageHero from "../components/PageHero.jsx";
 import "./SchedulePage.css";
 
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
 
 export default function SchedulePage({ onTabChange }) {
-
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -23,7 +17,7 @@ export default function SchedulePage({ onTabChange }) {
         const res = await fetch("http://localhost:5001/api/schedule");
         const data = await res.json();
         setEvents(data);
-      } catch(err) {
+      } catch (err) {
         console.log("Error Fetching Events:", err);
       }
     }
@@ -31,47 +25,74 @@ export default function SchedulePage({ onTabChange }) {
   }, []);
 
   const todayStr = new Date().toISOString().slice(0, 10);
-  const visibleEvents = events.filter(e => e.date >= todayStr);
+  const visibleEvents = events.filter((e) => e.date >= todayStr);
 
   return (
-    <div className="schedule-page">
-      <div className="page-header green-header">
-        <div className="ph-bg"><div className="orb orb1" /><div className="orb orb2" /><div className="grain" /></div>
-        <div className="ph-content">
-          <p className="hero-eyebrow">✦ Find Us Near You</p>
-          <h1 className="ph-title">Schedule</h1>
-          <p className="ph-sub">We move around — here's where we'll be.</p>
-        </div>
-      </div>
+    <div className="page schedule-page">
+      <PageHero
+        tone="green"
+        label="Pop-ups"
+        title="Schedule"
+        lede="Where we are next — markets, festivals, and private events."
+      />
 
-      <div className="schedule-body">
-        <div className="event-list">
-          <h3 className="el-heading">Upcoming Events</h3>
+      <div className="page-panel page-panel--white schedule-body">
+        <div className="page-inner">
+          <h2 className="section-heading">Upcoming</h2>
           {visibleEvents.length === 0 ? (
-            <div className="el-empty">
-              <span>📅</span>
-              <p>No upcoming events.<br />Check back soon or <button className="inline-link" onClick={() => onTabChange("inquiry")}>book us for your event</button>!</p>
+            <div className="schedule-empty">
+              <p className="muted">No upcoming dates listed yet.</p>
+              <p>
+                <button type="button" className="inline-link" onClick={() => onTabChange("inquiry")}>
+                  Book us for your event
+                </button>
+              </p>
             </div>
           ) : (
-            visibleEvents.map((ev) => (
-              <div className="event-card" key={ev.id}>
-                <div className="ec-left">
-                  <span className="ec-month">{MONTHS[new Date(ev.date + "T00:00:00").getMonth()].slice(0, 3)}</span>
-                  <span className="ec-day">{new Date(ev.date + "T00:00:00").getDate()}</span>
-                </div>
-                <div className="ec-info">
-                  <span className="ec-type">{ev.type}</span>
-                  <h4 className="ec-name">{ev.name}</h4>
-                  <p className="ec-meta">🕐 {ev.time}</p>
-                  <p className="ec-meta">📍 {ev.location}</p>
-                  {ev.note && <p className="ec-note">💬 {ev.note}</p>}
-                </div>
-                <button className="btn-ghost light ec-btn" onClick={() => onTabChange("menu")}>Preorder →</button>
-              </div>
-            ))
+            <ul className="event-list">
+              {visibleEvents.map((ev) => (
+                <li className="event-card" key={ev.id}>
+                  <div className="event-card__date" aria-hidden>
+                    <span className="event-card__month">
+                      {MONTHS[new Date(`${ev.date}T00:00:00`).getMonth()].slice(0, 3)}
+                    </span>
+                    <span className="event-card__day">
+                      {new Date(`${ev.date}T00:00:00`).getDate()}
+                    </span>
+                  </div>
+                  <div className="event-card__body">
+                    <span className="event-card__type">{ev.type}</span>
+                    <h3 className="event-card__name">{ev.name}</h3>
+                    <p className="event-card__meta">{ev.time}</p>
+                    <p className="event-card__meta">{ev.location}</p>
+                    {ev.note ? <p className="event-card__note">{ev.note}</p> : null}
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-ghost event-card__btn"
+                    onClick={() => onTabChange("menu")}
+                  >
+                    Preorder
+                  </button>
+                </li>
+              ))}
+            </ul>
           )}
         </div>
       </div>
+
+      <div className="page-panel page-panel--purple schedule-foot">
+        <div className="page-inner">
+          <p className="schedule-foot__text">
+            Need us at your venue?{" "}
+            <button type="button" className="inline-link" onClick={() => onTabChange("inquiry")}>
+              Send an inquiry
+            </button>
+            .
+          </p>
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
