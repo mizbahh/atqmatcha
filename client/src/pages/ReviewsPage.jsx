@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero.jsx";
 import "./ReviewsPage.css";
+import {jwtDecode} from "jwt-decode";
 
 function formatMonthYear(dateValue) {
   if (!dateValue) return "Recent";
@@ -92,11 +93,26 @@ export default function ReviewsPage() {
     text: "",
     displayDate: "",
   });
+  const [editingId, setEditingId] = useState(null);
+  const [editContent, setEditContent] = useState("");
+  const [editRating, setEditRating] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
+  const userId = token ? jwtDecode(token).user.id : null;
+
+
 
   useEffect(() => {
+
+
+    if (token) {
+    const decoded = jwtDecode(token);
+    console.log("Decoded JWT:", decoded);
+    }
+
+
     const loadReviews = async () => {
       try {
         setLoading(true);
@@ -108,6 +124,7 @@ export default function ReviewsPage() {
         }
         const dbReviews = data.map((review, index) => ({
           id: review._id || `db-${index}`,
+          customerId: review.customerId || review.userId,
           name: review.name || "Guest",
           date: review.displayDate || formatMonthYear(review.createdOn),
           stars: review.rating || 0,
@@ -115,12 +132,14 @@ export default function ReviewsPage() {
           text: review.content || "",
         }));
         setReviews(dbReviews);
+        
       } catch (err) {
         console.error("Error loading reviews:", err);
       } finally {
         setLoading(false);
       }
     };
+
     loadReviews();
   }, []);
 
@@ -130,8 +149,7 @@ export default function ReviewsPage() {
       return;
     }
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5001/api/reviews", {
+        const response = await fetch("http://localhost:5001/api/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -158,6 +176,7 @@ export default function ReviewsPage() {
       setReviews((current) => [
         {
           id: data._id || Date.now(),
+          customerId: data.customerId || userId,
           name: data.name || newReview.name,
           date: now,
           stars: data.rating ?? newReview.stars,
@@ -176,6 +195,55 @@ export default function ReviewsPage() {
     } catch (err) {
       console.error(err);
       setError("Failed to submit review.");
+    }
+  };
+
+  const handleDelete = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5001/api/reviews/${id}`, {
+      method: "DELETE",
+      headers: {
+        "x-auth-token": token,
+      },
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      console.error(data.message || "Failed to delete review");
+      return;
+    }
+    // setReviews updates the reviews array, using the previous state of the array, it filters only the items that pass the condition
+      // "Keep every review whose _id is not equal to the one we jsut deleted"
+      setReviews((prev) => prev.filter((r) => r.id !== id));
+
+    } catch (err) {
+      console.error("Delete error:", err);
+    }
+  };
+
+  // Update review
+  const handleUpdate = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5001/api/reviews/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({ content: editContent, rating: editRating }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        console.error(data.message || "Failed to update review");
+        return;
+      }
+      setReviews((prev) =>
+        prev.map((r) =>
+          r.id === id ? { ...r, text: data.content, stars: data.rating } : r
+        )
+      );
+      setEditingId(null);
+    } catch (err) {
+      console.error("Update error:", err);
     }
   };
 
@@ -273,8 +341,54 @@ export default function ReviewsPage() {
                     </div>
                     <Stars count={review.stars} />
                   </div>
-                  {review.tag ? <span className="review-card__tag">{review.tag}</span> : null}
-                  <p className="review-card__text">{review.text}</p>
+
+                   {/* Add title/tag */}
+                  {review.tag && <p className="review-card__tag">{review.tag}</p>}
+
+                  {/* Add review text/content */}
+                  {review.text && <p className="review-card__text">{review.text}</p>}
+
+                  {editingId === review.id ? (
+                  // Inline edit form
+                  <div className="review-edit-form">
+                    <textarea
+                      value={editContent}
+                      onChange={(e) => setEditContent(e.target.value)}
+                      rows={3}
+                    />
+                    <Stars
+                      count={editRating}
+                      interactive
+                      onSet={(n) => setEditRating(n)}
+                    />
+                    <button className="btn-primary" onClick={() => handleUpdate(review.id)}>
+                      Save
+                    </button>
+                    <button className="btn-secondary" onClick={() => setEditingId(null)}>
+                      Cancel
+                    </button>
+                  </div>
+                ) : null}
+
+      
+                {review.customerId?.toString() === userId?.toString() && (
+                  <div className="review-card__actions">
+                    <button className="btn-secondary" onClick={() => handleDelete(review.id)}>
+                      Delete
+                    </button>
+                    <button
+                      className="btn-secondary"
+                      onClick={() => {
+                        setEditingId(review.id);
+                        setEditContent(review.text);
+                        setEditRating(review.stars);
+                      }}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+
                 </article>
               ))
             )}

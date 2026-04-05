@@ -105,23 +105,11 @@ export async function updateReview(req, res) {
 
 export async function deleteReview(req, res) {
   try {
-    const selectedReview = await review.findById(req.params.id);
-
-    if (!selectedReview) {
-      return res.status(404).json({ message: "Review Not Found" });
-    }
-
-    if (
-      req.user.role === "admin" ||
-      selectedReview.customerId?.toString() === req.user.id
-    ) {
+      const selectedReview = await review.findById(req.params.id);
+      
       await selectedReview.deleteOne();
       return res.status(200).json({ message: "Review Deleted Successfully" });
-    }
 
-    return res.status(403).json({
-      message: "Not Authorized - User Cannot Delete Other Users' Reviews"
-    });
   } catch (error) {
     console.error("Error in deleteReview controller", error);
     res.status(500).json({ message: "Internal Server Error" });
