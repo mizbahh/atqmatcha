@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './login.css';
 import App from '../App';
 import CreateUserPage from './CreateUserPage';
+import { LOGO_BANNER_SRC } from "../brand.js";
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -59,8 +60,8 @@ export default function LoginPage() {
 
   return (
     <div className="loginContainer">
-      <h1 className="welcome">Welcome to ATQ Matcha</h1>
-
+      <h1 className="welcome">Welcome</h1>
+        <p className="login-sub">Atq Matcha</p>
       <form className="loginField">
         <div>
           <label className="username">Username:</label>

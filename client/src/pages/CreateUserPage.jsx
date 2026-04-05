@@ -8,6 +8,7 @@
 
 import React, { useState } from 'react';
 import './login.css';
+import { LOGO_BANNER_SRC } from "../brand.js";
 
 export default function CreateUserPage({ onBack }) {
   const [username, setUsername]         = useState('');
@@ -58,9 +59,11 @@ export default function CreateUserPage({ onBack }) {
   }
 
 
+
   // Renders success message if account creation is successful, otherwise renders the create user form.
   if (success) {
     return (
+      
       <div className="loginContainer">
         <h1 className="welcome">Account Created!</h1>
         <p className="successMessage">
