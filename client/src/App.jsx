@@ -5,10 +5,10 @@
 /*
   AI template generated -- modified from there
 */
-
 import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar      from "./components/Header.jsx";
+import { isAdmin } from "./auth";
 import HomePage    from "./pages/HomePage.jsx";
 import ImagesPage  from "./pages/ImagesPage.jsx";
 import ReviewsPage from "./pages/ReviewsPage.jsx";
