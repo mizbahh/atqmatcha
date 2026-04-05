@@ -5,10 +5,9 @@
 /*
   AI template generated -- modified from there
 */
-
+import { isAdmin } from "./auth";
 import { useState, useEffect } from "react";
 import "./App.css";
-
 import Navbar      from "./components/Header.jsx";
 import HomePage    from "./pages/HomePage.jsx";
 import ImagesPage  from "./pages/ImagesPage.jsx";
@@ -58,23 +57,34 @@ export default function App() {
       }
     }
   };
+return (
+  <div className="app">
 
-  return (
-    <div className="app">
-      {/* Renders navbar once at the top, never re-renders */}
-      <Navbar
-        activeTab={activeTab}
-        onTabChange={handleTabChange}
-        scrolled={scrolled}
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-      />
+    {isAdmin() && (
+  <div>
+    <h2 style={{ color: "red", textAlign: "center" }}>
+      ADMIN MODE
+    </h2>
 
-      {/* Renders the content of the active tab within the main content area */}
-      <main className="main-content">
-        {renderContent()}
-      </main>
+    <button onClick={() => setActiveTab("admin")}>
+      Go to Admin Panel
+    </button>
+  </div>
+)}
+    {/* Renders navbar once at the top, never re-renders */}
+    <Navbar
+      activeTab={activeTab}
+      onTabChange={handleTabChange}
+      scrolled={scrolled}
+      menuOpen={menuOpen}
+      setMenuOpen={setMenuOpen}
+    />
 
-    </div>
-  );
+    {/* Renders page content */}
+    <main className="main-content">
+      {renderContent()}
+    </main>
+
+  </div>
+);
 }
