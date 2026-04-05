@@ -1,34 +1,25 @@
 import mongoose from "mongoose";
 
-
-//1 - Create a schema
-
-//2 - Create model based from the schema
-
-
-const menuitemSchema = new mongoose.Schema(
-{
+const menuitemSchema = new mongoose.Schema({
     name: {
-        type:String, 
-        required: true
-    },
-    description: {
-        type:String,
-        required:true
-    },
-    imageURL:{
         type: String,
         required: true
     },
-    price:{
-        type:Number,
+    description: {
+        type: String,
+        required: true
+    },
+    imageURL: {
+        type: String,
+        default: ""
+    },
+    price: {
+        type: Number,
         required: true,
         min: 0
     }
-
-}
-);
+});
 
 const menuItem = mongoose.model("menuItem", menuitemSchema);
 
-export default menuItem
+export default menuItem;
