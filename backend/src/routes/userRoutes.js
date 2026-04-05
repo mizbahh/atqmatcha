@@ -5,16 +5,15 @@ import { createUser, deleteUser, getAllUsers, getUserByID, makeAdmin, updateUser
 
 const router = express.Router();
 
+// PUBLIC routes
+router.post("/register", createUser);
+
+// ADMIN routes 
 router.get("/", auth, isAdmin, getAllUsers);
-
 router.get("/:id", auth, isAdmin, getUserByID);
-
 router.post("/", auth, isAdmin, createUser);
-
 router.put("/:id", auth, isAdmin, updateUser);
-
 router.put("/make-admin/:id", auth, isAdmin, makeAdmin);
-
 router.delete("/:id", auth, isAdmin, deleteUser);
 
 export default router;

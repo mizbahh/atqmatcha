@@ -28,8 +28,8 @@ export async function getUserByID(req, res)
 export async function createUser(req, res)
 {
    try {
-    const {firstName, lastName, username, password} = req.body
-    const newUser = new user({firstName: firstName, lastName: lastName, username: username, password: password })
+    const {username, password, email} = req.body
+    const newUser = new user({username: username, password: password, email: email })
     
     const savedUser = await newUser.save()
 
@@ -46,10 +46,10 @@ export async function createUser(req, res)
 export async function updateUser(req, res)
 {
     try {
-        const {firstName, lastName, username, password} = req.body
+        const {username, password, email} = req.body
         const updatedUser = await user.findByIdAndUpdate(
             req.params.id,
-            {firstName, lastName, username, password},
+            {username, password, email},
             {new: true,}
         )
 
