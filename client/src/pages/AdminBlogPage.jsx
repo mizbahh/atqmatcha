@@ -141,9 +141,11 @@ export default function AdminBlogPage() {
             <label>Body</label>
             <textarea name="body" value={formData.body} onChange={handleChange} required />
 
+           {/*} Depricated feature for now, can be added back later if needed
             <label>
               <input type="checkbox" name="featured" checked={formData.featured} onChange={handleChange} /> Featured
             </label>
+              */}
 
             <label>Tag</label>
             <select name="tag" value={formData.tag} onChange={handleChange}>

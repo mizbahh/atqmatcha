@@ -1,7 +1,3 @@
-/*
-  AI generated frontend for testing functionality. Not intended for production use.
-*/
-
 import "./Footer.css";
 
 export default function Footer() {
@@ -14,9 +10,7 @@ export default function Footer() {
         <div className="footer-links">
           <a href="https://www.instagram.com/atqmatcha/">Instagram</a>
           <a href="https://www.tiktok.com/@atqmatcha.orl">TikTok</a>
-          {/*<a href="#">Contact</a>*/}
         </div>
-        {/*<p className="footer-copy">© 2026 Atq Matcha. All rights reserved.</p>*/}
       </div>
     </footer>
   );
