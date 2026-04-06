@@ -10,7 +10,7 @@ const announcementSchema = new mongoose.Schema(
     tag: {
       type: String,
       required: true,
-      enum: ["Announcement", "New Item", "Behind the Scenes", "Event Recap", "Tip"],
+      enum: ["Announcement", "New Item", "Behind The Scenes", "Event Recap", "Tip"],
       default: "Announcement",
       trim: true
     },

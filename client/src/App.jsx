@@ -15,6 +15,7 @@ import MenuPage from "./pages/MenuPage.jsx";
 import BlogPage from "./pages/BlogPage.jsx";
 import AdminViewPage from "./pages/AdminViewPage.jsx";
 import AdminOrdersPage from "./pages/AdminOrdersPage.jsx";
+import AdminBlogPage from "./pages/AdminBlogPage.jsx";
 
 export default function App() {
   const [activeTab, setActiveTab] = useState("home");
@@ -57,6 +58,8 @@ export default function App() {
         return adminMode ? <AdminViewPage onTabChange={handleTabChange} /> : <HomePage onTabChange={handleTabChange} />;
       case "adminOrders":
         return adminMode ? <AdminOrdersPage onTabChange={handleTabChange} /> : <HomePage onTabChange={handleTabChange} />;
+      case "adminBlog":
+        return adminMode ? <AdminBlogPage onTabChange={handleTabChange} /> : <HomePage onTabChange={handleTabChange} />;
       default:
         return <HomePage onTabChange={handleTabChange} />;
     }

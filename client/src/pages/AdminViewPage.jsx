@@ -44,7 +44,7 @@ export default function AdminViewPage({ onTabChange }) {
               </button>
             </li>
             <li>
-              <button type="button" className="admin-tool-card" onClick={() => onTabChange("blog")}>
+              <button type="button" className="admin-tool-card" onClick={() => onTabChange("adminBlog")}>
                 <span className="admin-tool-card__title">Blog & Announcements</span>
                 <span className="admin-tool-card__text">
                   Go to the announcements section to review what customers currently see on the public site.
