@@ -5,7 +5,10 @@ import user from "../models/user.js";
 export async function getAllOrders(_, res)
 {
     try {
-        const orders = await order.find();
+        const orders = await order.find()
+            .populate("customerID", "username")
+            .populate("items.menuItemId", "name")
+            .sort({ createdOn: -1 });
         res.status(200).json(orders);
     } catch (error) {
         console.error("Error in getAllOrders controller", error);
@@ -16,7 +19,9 @@ export async function getAllOrders(_, res)
 export async function getOrderByID(req, res)
 {
     try {
-        const selectedOrder = await order.findById(req.params.id);
+        const selectedOrder = await order.findById(req.params.id)
+            .populate("customerID", "username")
+            .populate("items.menuItemId", "name");
 
         if (!selectedOrder) {
             return res.status(404).json({ message: "Order Not Found" });
