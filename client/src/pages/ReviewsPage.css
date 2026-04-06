@@ -217,3 +217,30 @@
   line-height: 1.55;
   color: var(--dark-grey);
 }
+
+.review-card__actions {
+  align-items: center;
+  display: flex;
+  gap: 0.45rem;
+  margin-top: 0.75rem;  
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--dark-grey);
+  border: 1px solid var(--border-subtle);
+  padding: 0.45rem 1.05rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.btn-secondary:hover {
+  background: var(--logo-green);
+  border-color: var(--logo-green);
+  color: var(--dark-grey);
+}
