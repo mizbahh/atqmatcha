@@ -1,0 +1,45 @@
+.admin-view-body {
+  padding-top: 2.5rem;
+}
+
+.admin-tool-grid {
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-tool-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-align: left;
+  background: var(--surface-mist);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  padding: 1rem 1rem 1.05rem;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.admin-tool-card:hover {
+  background: #e8efea;
+  border-color: rgba(84, 84, 84, 0.22);
+  transform: translateY(-1px);
+}
+
+.admin-tool-card__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-muted);
+}
+
+.admin-tool-card__text {
+  font-size: 0.93rem;
+  line-height: 1.55;
+  color: var(--text-mid);
+}
