@@ -41,6 +41,7 @@ export default function MenuPage({ onTabChange }) {
   };
 
   const addToCart = (item) => {
+    setMessage(""); // Clears "Order placed successfully" message when adding new item after placing order
     const option = selectedOptions[item.name] || item.options[0];
 
     setCart((prev) => {
@@ -257,9 +258,9 @@ export default function MenuPage({ onTabChange }) {
 
               {message ? <p className="cart-note muted">{message}</p> : null}
 
-              {cart.length === 0 ? (
+              {cart.length === 0 && !message ? (
                 <p className="cart-box__empty muted">Nothing added yet.</p>
-              ) : (
+              ) : cart.length === 0 ? null : (
                 <>
                   <ul className="cart-list">
                     {cart.map((c) => (
