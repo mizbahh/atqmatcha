@@ -1,8 +1,20 @@
 import "./Header.css";
-import tabs from "../data/tabs";
 import { LOGO_BANNER_SRC } from "../brand.js";
 
-export default function Navbar({ activeTab, onTabChange, scrolled, menuOpen, setMenuOpen }) {
+const baseTabs = [
+  { id: "home", label: "Home" },
+  { id: "images", label: "Images" },
+  { id: "reviews", label: "Reviews" },
+  { id: "schedule", label: "Schedule" },
+  { id: "inquiry", label: "Event Inquiry" },
+  { id: "menu", label: "Menu / Preorder" },
+  { id: "blog", label: "Blog & Announcements" },
+];
+
+export default function Navbar({ activeTab, onTabChange, scrolled, menuOpen, setMenuOpen, adminMode = false }) {
+  const tabs = adminMode
+    ? [...baseTabs, { id: "admin", label: "Admin View" }]
+    : baseTabs;
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""} ${activeTab !== "home" ? "navbar-light" : ""}`}>
       <div className="nav-inner">
