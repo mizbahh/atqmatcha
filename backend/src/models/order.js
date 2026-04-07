@@ -17,7 +17,6 @@ const orderItemSchema = new mongoose.Schema({
     },
     option: {
         type: String,
-        enum: ["Oat Milk", "Almond Milk"],
         required: true
     }
 });

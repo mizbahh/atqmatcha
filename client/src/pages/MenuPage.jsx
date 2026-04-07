@@ -1,10 +1,48 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero.jsx";
-import menuData from "../data/menuData";
+
 import "./MenuPage.css";
 
 const categories = [{ id: "hot", label: "Matcha lattes" }];
+
+const preferredOrderByName = {
+  "standard matcha latte": 0,
+  "maple salted matcha latte": 1,
+  "rooh afza matcha latte": 2,
+  "golden matcha latte": 3
+};
+
+
+
+function formatPrice(price) {
+  const numericPrice = Number(price);
+
+  if (Number.isNaN(numericPrice)) {
+    return String(price || "");
+  }
+
+  return `$${numericPrice.toFixed(2)}`;
+}
+
+function normalizeMenuItem(item, index) {
+  const normalizedName = item.name?.trim().toLowerCase();
+  const preferredOrder = preferredOrderByName[normalizedName];
+  return {
+    _id: item._id,
+    name: item.name,
+    price: formatPrice(item.price),
+    desc: item.description,
+    tag: item.tag ?? "",
+    color: item.color ||  "#c8e6c2",
+    options: Array.isArray(item.options) ? item.options : [],
+    category: item.category || "hot",
+    displayOrder:
+      typeof item.displayOrder === "number"
+        ? item.displayOrder
+        : preferredOrder ?? index
+  };
+}
 
 export default function MenuPage({ onTabChange }) {
   const [category, setCategory] = useState("hot");
@@ -15,8 +53,6 @@ export default function MenuPage({ onTabChange }) {
   const [submitting, setSubmitting] = useState(false);
   const [dbMenuItems, setDbMenuItems] = useState([]);
 
-  const currentItems = menuData[category];
-
   useEffect(() => {
     async function fetchMenuItems() {
       try {
@@ -24,7 +60,7 @@ export default function MenuPage({ onTabChange }) {
         const data = await res.json();
 
         if (res.ok) {
-          setDbMenuItems(data);
+          setDbMenuItems(Array.isArray(data) ? data : []);
         } else {
           console.error("Failed to load menu items", data);
         }
@@ -36,12 +72,23 @@ export default function MenuPage({ onTabChange }) {
     fetchMenuItems();
   }, []);
 
+  const currentItems = useMemo(() => {
+    if (setDbMenuItems.length > 0) {
+      return dbMenuItems
+        .map((item, index) => normalizeMenuItem(item, index))
+        .filter((item) => item.category === category)
+        .sort((a, b) => a.displayOrder - b.displayOrder);
+    }
+
+    return menuData[category] || [];
+  }, [category, dbMenuItems]);
+
   const handleOptionChange = (itemName, value) => {
     setSelectedOptions((prev) => ({ ...prev, [itemName]: value }));
   };
 
   const addToCart = (item) => {
-    setMessage(""); // Clears "Order placed successfully" message when adding new item after placing order
+    setMessage("");
     const option = selectedOptions[item.name] || item.options[0];
 
     setCart((prev) => {
@@ -114,6 +161,8 @@ export default function MenuPage({ onTabChange }) {
         };
       });
 
+      console.log(JSON.stringify({ items }));
+
       const res = await fetch("http://localhost:5001/api/orders", {
         method: "POST",
         headers: {
@@ -122,6 +171,8 @@ export default function MenuPage({ onTabChange }) {
         },
         body: JSON.stringify({ items })
       });
+
+      
 
       const data = await res.json();
 
@@ -192,7 +243,7 @@ export default function MenuPage({ onTabChange }) {
 
             <ul className="menu-items">
               {currentItems.map((item) => (
-                <li className="menu-item-card" key={item.name}>
+                <li className="menu-item-card" key={item._id || item.name}>
                   <div
                     className="menu-item-card__accent"
                     style={{ background: item.color }}

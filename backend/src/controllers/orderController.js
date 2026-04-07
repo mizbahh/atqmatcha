@@ -58,6 +58,8 @@ export async function createOrder(req, res)
                 (m) => m._id.toString() === item.menuItemId
             );
 
+            console.log(menu.options);
+
             if (!menu) {
                 throw new Error(`Invalid Item Id: ${item.menuItemId}`);
             }
