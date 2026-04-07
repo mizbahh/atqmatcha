@@ -137,3 +137,15 @@
   gap: 0.55rem;
   margin-top: 1rem;
 }
+
+.blog-form > select {
+  padding: 0.65rem 1.35rem;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--dark-grey);
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), color var(--transition);
+}
