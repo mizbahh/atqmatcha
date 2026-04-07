@@ -34,7 +34,7 @@ function normalizeMenuItem(item, index) {
     price: formatPrice(item.price),
     desc: item.description,
     tag: item.tag ?? "",
-    color: item.color ||  "#c8e6c2",
+    color: item.color || "#c8e6c2",
     options: Array.isArray(item.options) ? item.options : [],
     category: item.category || "hot",
     displayOrder:
@@ -172,7 +172,7 @@ export default function MenuPage({ onTabChange }) {
         body: JSON.stringify({ items })
       });
 
-      
+
 
       const data = await res.json();
 
@@ -269,11 +269,10 @@ export default function MenuPage({ onTabChange }) {
                             <button
                               key={o}
                               type="button"
-                              className={`opt-chip ${
-                                (selectedOptions[item.name] || item.options[0]) === o
-                                  ? "selected"
-                                  : ""
-                              }`}
+                              className={`opt-chip ${(selectedOptions[item.name] || item.options[0]) === o
+                                ? "selected"
+                                : ""
+                                }`}
                               onClick={() => handleOptionChange(item.name, o)}
                             >
                               {o}
@@ -285,9 +284,8 @@ export default function MenuPage({ onTabChange }) {
 
                     <button
                       type="button"
-                      className={`btn-primary menu-add ${
-                        added === item.name ? "is-added" : ""
-                      }`}
+                      className={`btn-primary menu-add ${added === item.name ? "is-added" : ""
+                        }`}
                       onClick={() => addToCart(item)}
                     >
                       {added === item.name ? "Added" : "Add"}
@@ -307,7 +305,7 @@ export default function MenuPage({ onTabChange }) {
                 ) : null}
               </div>
 
-              {message ? <p className="cart-note muted">{message}</p> : null}
+              {message ? <p className="cart-note" style={{ color: "var(--green-muted)", fontWeight: 600 }}>{message}</p> : null}
 
               {cart.length === 0 && !message ? (
                 <p className="cart-box__empty muted">Nothing added yet.</p>

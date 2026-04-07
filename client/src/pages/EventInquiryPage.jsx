@@ -45,23 +45,23 @@ export default function EventInquiryPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaq, setOpenFaq] = useState(new Set());
 
   const set = (field) => (e) => setForm({ ...form, [field]: e.target.value });
 
   const handleSubmit = async () => {
-    if(!form.name || !form.email || !form.eventType || !form.date){
+    if (!form.name || !form.email || !form.eventType || !form.date) {
       setError("Please fill out all required fields");
       return;
     }
-    
-    try{
+
+    try {
       const token = localStorage.getItem("token"); //gets JWT of user who logged in
 
       const res = await fetch("http://localhost:5001/api/events", {
         method: "POST",
-        headers:{
-          "Content-Type":"application/json",
+        headers: {
+          "Content-Type": "application/json",
           "x-auth-token": token
         },
         body: JSON.stringify({
@@ -88,7 +88,7 @@ export default function EventInquiryPage() {
       setError("");
 
 
-    }catch(err){
+    } catch (err) {
       console.log("Error in Submitting Event Inquiry:", err);
       setError("Something went wrong. Please try again later");
     }
@@ -152,7 +152,7 @@ export default function EventInquiryPage() {
               </div>
             </div>
             <div className="if-field">
-              <label htmlFor="inq-phone">Phone (optional)</label>
+              <label htmlFor="inq-phone">Phone </label>
               <input id="inq-phone" type="tel" value={form.phone} onChange={set("phone")} />
             </div>
 
@@ -212,13 +212,11 @@ export default function EventInquiryPage() {
               <div className="faq-item" key={faq.q}>
                 <button
                   type="button"
-                  className={`faq-q ${openFaq === i ? "is-open" : ""}`}
-                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className={`faq-q ${openFaq.has(i) ? "is-open" : ""}`} onClick={() => setOpenFaq(prev => { const n = new Set(prev); n.has(i) ? n.delete(i) : n.add(i); return n; })}
                 >
                   {faq.q}
                 </button>
-                {openFaq === i ? <p className="faq-a">{faq.a}</p> : null}
-              </div>
+                {openFaq.has(i) ? <p className="faq-a">{faq.a}</p> : null}              </div>
             ))}
           </aside>
         </div>

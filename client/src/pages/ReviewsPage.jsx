@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import PageHero from "../components/PageHero.jsx";
 import "./ReviewsPage.css";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function formatMonthYear(dateValue) {
   if (!dateValue) return "Recent";
@@ -108,8 +108,8 @@ export default function ReviewsPage() {
 
 
     if (token) {
-    const decoded = jwtDecode(token);
-    console.log("Decoded JWT:", decoded);
+      const decoded = jwtDecode(token);
+      console.log("Decoded JWT:", decoded);
     }
 
 
@@ -132,7 +132,7 @@ export default function ReviewsPage() {
           text: review.content || "",
         }));
         setReviews(dbReviews);
-        
+
       } catch (err) {
         console.error("Error loading reviews:", err);
       } finally {
@@ -149,7 +149,7 @@ export default function ReviewsPage() {
       return;
     }
     try {
-        const response = await fetch("http://localhost:5001/api/reviews", {
+      const response = await fetch("http://localhost:5001/api/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -199,19 +199,19 @@ export default function ReviewsPage() {
   };
 
   const handleDelete = async (id) => {
-  try {
-    const response = await fetch(`http://localhost:5001/api/reviews/${id}`, {
-      method: "DELETE",
-      headers: {
-        "x-auth-token": token,
-      },
-    });
-    if (!response.ok) {
-      const data = await response.json();
-      console.error(data.message || "Failed to delete review");
-      return;
-    }
-    // setReviews updates the reviews array, using the previous state of the array, it filters only the items that pass the condition
+    try {
+      const response = await fetch(`http://localhost:5001/api/reviews/${id}`, {
+        method: "DELETE",
+        headers: {
+          "x-auth-token": token,
+        },
+      });
+      if (!response.ok) {
+        const data = await response.json();
+        console.error(data.message || "Failed to delete review");
+        return;
+      }
+      // setReviews updates the reviews array, using the previous state of the array, it filters only the items that pass the condition
       // "Keep every review whose _id is not equal to the one we jsut deleted"
       setReviews((prev) => prev.filter((r) => r.id !== id));
 
@@ -269,7 +269,7 @@ export default function ReviewsPage() {
         <div className="page-inner">
           {formOpen ? (
             <div className="review-form">
-            <h2 className="section-heading">Your review</h2>
+              <h2 className="section-heading">Your review</h2>
               {submitted ? (
                 <p className="form-success">Thanks — your review was added.</p>
               ) : (
@@ -342,52 +342,48 @@ export default function ReviewsPage() {
                     <Stars count={review.stars} />
                   </div>
 
-                   {/* Add title/tag */}
+                  {/* Add title/tag */}
                   {review.tag && <p className="review-card__tag">{review.tag}</p>}
 
-                  {/* Add review text/content */}
-                  {review.text && <p className="review-card__text">{review.text}</p>}
+                  {editingId !== review.id && review.text && <p className="review-card__text">{review.text}</p>}
 
                   {editingId === review.id ? (
-                  // Inline edit form
-                  <div className="review-edit-form">
-                    <textarea
-                      value={editContent}
-                      onChange={(e) => setEditContent(e.target.value)}
-                      rows={3}
-                    />
-                    <Stars
-                      count={editRating}
-                      interactive
-                      onSet={(n) => setEditRating(n)}
-                    />
-                    <button className="btn-primary" onClick={() => handleUpdate(review.id)}>
-                      Save
-                    </button>
-                    <button className="btn-secondary" onClick={() => setEditingId(null)}>
-                      Cancel
-                    </button>
-                  </div>
-                ) : null}
+                    <div className="review-edit-form">
+                      <textarea
+                        value={editContent}
+                        onChange={(e) => setEditContent(e.target.value)}
+                        rows={3}
+                      />
+                      <Stars
+                        count={editRating}
+                        interactive
+                        onSet={(n) => setEditRating(n)}
+                      />
+                      <div className="review-edit-form__actions">
+                        <button className="btn-primary" onClick={() => handleUpdate(review.id)}>Save</button>
+                        <button className="btn-secondary" onClick={() => setEditingId(null)}>Cancel</button>
+                      </div>
+                    </div>
+                  ) : null}
 
-      
-                {review.customerId?.toString() === userId?.toString() && (
-                  <div className="review-card__actions">
-                    <button className="btn-secondary" onClick={() => handleDelete(review.id)}>
-                      Delete
-                    </button>
-                    <button
-                      className="btn-secondary"
-                      onClick={() => {
-                        setEditingId(review.id);
-                        setEditContent(review.text);
-                        setEditRating(review.stars);
-                      }}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                )}
+
+                  {review.customerId?.toString() === userId?.toString() && (
+                    <div className="review-card__actions">
+                      <button className="btn-secondary" onClick={() => handleDelete(review.id)}>
+                        Delete
+                      </button>
+                      <button
+                        className="btn-secondary"
+                        onClick={() => {
+                          setEditingId(review.id);
+                          setEditContent(review.text);
+                          setEditRating(review.stars);
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  )}
 
                 </article>
               ))
